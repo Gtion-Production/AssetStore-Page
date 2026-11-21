@@ -186,7 +186,18 @@
       links.forEach(function (a, n) { a.classList.toggle('active', n === i); });
     }
 
+    var locked = false, unlockTimer;
+
+    // After a click, ignore scroll-spy until the smooth scroll has finished.
+    function lock() {
+      locked = true;
+      clearTimeout(unlockTimer);
+      unlockTimer = setTimeout(unlock, 1200);
+    }
+    function unlock() { locked = false; update(); }
+
     function update() {
+      if (locked) return;
       var current = 0;
       var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
       if (atBottom) {
@@ -200,9 +211,17 @@
     }
 
     links.forEach(function (a, i) {
-      a.addEventListener('click', function () { setActive(i); });
+      a.addEventListener('click', function () { setActive(i); lock(); });
     });
-    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', function () {
+      if (locked) {
+        // Wait for scrolling to settle, then hand control back to scroll-spy.
+        clearTimeout(unlockTimer);
+        unlockTimer = setTimeout(unlock, 120);
+      } else {
+        update();
+      }
+    }, { passive: true });
     window.addEventListener('resize', update);
     update();
   })();
