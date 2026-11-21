@@ -16,7 +16,7 @@
     --text-muted: #6b6a6a;
     --accent: #ffe656;
     --overlay: rgba(0, 0, 0, .5);
-    --header-h: 60px;
+    --header-h: 90px;
     --container: 1000px;
     --radius-icon: 10px;
     --font-heading: "Poppins", "Noto Sans", system-ui, sans-serif;
@@ -32,10 +32,11 @@
 
   /* Header */
   header { position: fixed; inset: 0 0 auto 0; height: var(--header-h); background: var(--bg-header); z-index: 10; }
-  header .container { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-  .logo { color: var(--text-on-dark); font: 700 20px var(--font-heading); letter-spacing: .04em; }
-  nav { display: flex; gap: 32px; }
-  nav a { font: 700 12px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 4px; border-bottom: 2px solid transparent; transition: color .2s; }
+  header .container { height: 100%; max-width: none; padding: 0 56px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; }
+  .logo img { display: block; height: 76px; width: auto; }
+  nav { display: flex; gap: 72px; }
+  nav a { font: 700 18px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 6px; border-bottom: 4px solid transparent; transition: color .2s; }
   nav a:hover, nav a.active { color: var(--text-on-dark); }
   nav a.active { border-color: var(--accent); }
 
@@ -84,7 +85,11 @@
   footer a:hover { color: #fff; }
 
   @media (max-width: 768px) {
+    :root { --header-h: 64px; }
+    header .container { padding: 0 16px; }
+    .logo img { height: 46px; }
     nav { gap: 16px; }
+    nav a { font-size: 13px; border-bottom-width: 3px; }
     nav a:nth-child(n+4) { display: none; }
     .caption h1 { font-size: 32px; }
     .news-row { flex-wrap: wrap; }
@@ -94,7 +99,7 @@
 <body>
 <header>
   <div class="container">
-    <a class="logo" href="#">GTION</a>
+    <a class="logo" href="#" aria-label="GTION Game Studio"><img src="assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
     <nav>
       <a class="active" href="#home">Home</a>
       <a href="#about">About</a>
