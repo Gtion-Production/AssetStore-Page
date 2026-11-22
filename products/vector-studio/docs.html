@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vector Studio Documentation – Gtion Asset Store</title>
+<meta name="description" content="Documentation for Vector Studio: editor, runtime renderer, UI Toolkit and icons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../index.html" aria-label="GTION Game Studio"><img src="../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../index.html#home">Home</a>
+      <a href="../../index.html#about">About</a>
+      <a class="active" href="../../index.html#assets">Assets</a>
+      <a href="../../index.html#news">News</a>
+      <a href="../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="crumbs"><a href="../../index.html#assets">Assets</a> / <a href="index.html">Vector Studio</a> / Documentation</div>
+      <div class="tabs"><span>Documentation</span></div>
+      <h1>Vector Studio Documentation</h1>
+      <p class="muted" style="margin-top:8px">Draft. Details will be finalized with the Asset Store release.</p>
+
+      <div class="docs" style="margin-top:32px">
+        <aside class="toc" aria-label="On this page">
+          <b>On this page</b>
+          <a href="#introduction">Introduction</a>
+          <a href="#installation">Installation</a>
+          <a href="#editor">Vector Graphics Editor</a>
+          <a href="#runtime">Runtime Renderer</a>
+          <a href="#ui-toolkit">UI Toolkit</a>
+          <a href="#icons">Icons</a>
+          <a href="#faq">FAQ</a>
+          <a href="#support">Support</a>
+        </aside>
+
+        <article class="doc-body">
+          <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Vector Studio is a set of tools for working with vector graphics in Unity: an editor for authoring artwork, a runtime renderer for drawing it in your game, UI Toolkit integration and a library of icons.</p>
+          </section>
+
+          <section id="installation">
+            <h2>Installation</h2>
+            <ol>
+              <li>Open the Unity Asset Store page for Vector Studio (link available at release) and add it to your assets.</li>
+              <li>In Unity, open <code>Window &rsaquo; Package Manager</code>, choose <b>My Assets</b>, find Vector Studio and click <b>Import</b>.</li>
+              <li>Wait for the import and script compilation to finish.</li>
+            </ol>
+            <p class="note">Supported Unity versions and render pipelines will be listed here at release.</p>
+          </section>
+
+          <section id="editor">
+            <h2>Vector Graphics Editor</h2>
+            <p>The editor is where you create and edit vector artwork inside Unity.</p>
+            <ul>
+              <li>Draw shapes and paths and adjust their fills and strokes.</li>
+              <li>Save your artwork as an asset in your project.</li>
+              <li>Edit existing artwork at any time. Nothing is baked to pixels.</li>
+            </ul>
+          </section>
+
+          <section id="runtime">
+            <h2>Runtime Renderer</h2>
+            <p>The runtime renderer draws vector artwork in your game. Because the artwork is vector data, it stays sharp at any resolution and scale.</p>
+            <ol>
+              <li>Add the vector artwork asset to a scene.</li>
+              <li>Adjust its size, color and sorting as needed.</li>
+              <li>Press Play. The renderer draws it at the current screen resolution.</li>
+            </ol>
+          </section>
+
+          <section id="ui-toolkit">
+            <h2>UI Toolkit</h2>
+            <p>Use vector artwork in UI Toolkit interfaces so buttons, panels and backgrounds stay crisp on every display.</p>
+            <ul>
+              <li>Assign vector artwork as an element background in UI Builder or in UXML/USS.</li>
+              <li>Scale elements freely without exporting extra textures.</li>
+            </ul>
+          </section>
+
+          <section id="icons">
+            <h2>Icons</h2>
+            <p>Vector Studio includes a library of icons that scale and recolor without additional texture assets. Use them in the editor, at runtime or in UI Toolkit.</p>
+          </section>
+
+          <section id="faq">
+            <h2>FAQ</h2>
+            <h3>Does it work with UI Toolkit?</h3>
+            <p>Yes. See the <a href="#ui-toolkit"><u>UI Toolkit</u></a> section.</p>
+            <h3>When will it be on the Asset Store?</h3>
+            <p>Vector Studio is coming soon. Join the <a href="../../index.html#contact"><u>Gtion Discord</u></a> for release news.</p>
+          </section>
+
+          <section id="support">
+            <h2>Support</h2>
+            <p>Questions or bug reports? Reach the team through the <a href="../../index.html#contact"><u>Contact Us</u></a> section or on Discord.</p>
+          </section>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+
+<script>
+  // Highlight the table-of-contents entry for the section in view.
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function update() {
+      var cur = 0;
+      secs.forEach(function (s, i) { if (s.getBoundingClientRect().top <= 140) cur = i; });
+      links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>

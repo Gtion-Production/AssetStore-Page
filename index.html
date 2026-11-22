@@ -58,6 +58,22 @@
   h2 { font: 700 28px var(--font-heading); margin-bottom: 16px; }
   .about p { max-width: 70ch; margin-bottom: 16px; }
 
+  /* Patterned page background (diagonal hatch, Yostar-style) */
+  body {
+    background-color: #f7f7f7;
+    background-image: repeating-linear-gradient(135deg, rgba(0,0,0,.035) 0 1px, transparent 1px 4px);
+  }
+  .about { position: relative; overflow: hidden; }
+  .about .container { position: relative; z-index: 1; }
+  /* Decorative boxes: dot grid + yellow outline square */
+  .about::before { content: ""; position: absolute; top: 40px; right: 8%; width: 220px; height: 150px;
+    background: radial-gradient(circle, #000 1.5px, transparent 2px) 0 0 / 16px 16px; opacity: .8; }
+  .about::after { content: ""; position: absolute; bottom: 30px; right: 14%; width: 140px; height: 110px;
+    background: var(--accent); }
+  .about .container::after { content: ""; position: absolute; top: -20px; left: 55%; width: 260px; height: 140px;
+    border: 3px solid var(--accent); z-index: -1; }
+  @media (max-width: 700px) { .about::before, .about::after, .about .container::after { display: none; } }
+
   /* Asset grid */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; }
   .card { border: 1px solid #e5e5e5; transition: transform .2s; }
@@ -138,6 +154,7 @@
         <a class="card" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"></div><div class="meta"><h3>NeuralNet Pro</h3><small>Machine Learning</small></div></a>
         <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Utilities</small></div></a>
         <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Utilities</small></div></a>
+        <a class="card" href="products/vector-studio/index.html"><div class="thumb" style="background:#000 url('products/vector-studio/thumbnail.svg') center/cover"></div><div class="meta"><h3>Vector Studio</h3><small>Tools · Coming Soon</small></div></a>
       </div>
     </div>
   </section>
