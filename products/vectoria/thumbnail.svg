@@ -5,7 +5,7 @@
   </g>
   <!-- bezier path with handles -->
   <g fill="none" stroke-linecap="round">
-    <path d="M110 330 C 230 60, 430 60, 520 250 S 650 330, 700 150" stroke="#ffe656" stroke-width="8"/>
+    <path d="M110 330 C 230 60, 430 60, 520 250 S 650 330, 700 150" stroke="#09b1ec" stroke-width="8"/>
     <path d="M110 330 L 230 60 M520 250 L 430 60 M520 250 L 610 340" stroke="#848383" stroke-width="2" stroke-dasharray="6 6"/>
   </g>
   <g fill="#fff" stroke="#000" stroke-width="3">
@@ -13,7 +13,7 @@
     <rect x="510" y="240" width="20" height="20"/>
     <rect x="690" y="140" width="20" height="20"/>
   </g>
-  <g fill="#ffe656"><circle cx="230" cy="60" r="9"/><circle cx="430" cy="60" r="9"/><circle cx="610" cy="340" r="9"/></g>
+  <g fill="#09b1ec"><circle cx="230" cy="60" r="9"/><circle cx="430" cy="60" r="9"/><circle cx="610" cy="340" r="9"/></g>
   <text x="48" y="390" fill="#fff" font-family="Poppins, 'Noto Sans', Arial, sans-serif" font-weight="700" font-size="44">Vectoria</text>
   <text x="50" y="420" fill="#848383" font-family="'Noto Sans', Arial, sans-serif" font-size="18">Illustrator &amp; Renderer by Gtion</text>
 </svg>
