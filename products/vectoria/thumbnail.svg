@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Vector Studio">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Vectoria">
   <rect width="800" height="450" fill="#000"/>
   <g stroke="#2a2a2a" stroke-width="1">
     <path d="M0 90H800M0 180H800M0 270H800M0 360H800M160 0V450M320 0V450M480 0V450M640 0V450"/>
@@ -14,6 +14,6 @@
     <rect x="690" y="140" width="20" height="20"/>
   </g>
   <g fill="#ffe656"><circle cx="230" cy="60" r="9"/><circle cx="430" cy="60" r="9"/><circle cx="610" cy="340" r="9"/></g>
-  <text x="48" y="390" fill="#fff" font-family="Poppins, 'Noto Sans', Arial, sans-serif" font-weight="700" font-size="44">Vector Studio</text>
-  <text x="50" y="420" fill="#848383" font-family="'Noto Sans', Arial, sans-serif" font-size="18">By Gtion Team</text>
+  <text x="48" y="390" fill="#fff" font-family="Poppins, 'Noto Sans', Arial, sans-serif" font-weight="700" font-size="44">Vectoria</text>
+  <text x="50" y="420" fill="#848383" font-family="'Noto Sans', Arial, sans-serif" font-size="18">Illustrator &amp; Renderer by Gtion</text>
 </svg>
