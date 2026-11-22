@@ -40,14 +40,26 @@
   nav a:hover, nav a.active { color: var(--text-on-dark); }
   nav a.active { border-color: var(--accent); }
 
-  /* Hero */
-  .hero { position: relative; min-height: 600px; padding-top: var(--header-h); display: flex; align-items: center; color: var(--text-on-dark);
-    background: linear-gradient(135deg, #1b2a49 0%, #3a6ea5 55%, #9fd3f2 100%); }
-  .hero::after { content: ""; position: absolute; inset: 0; background: var(--overlay); opacity: .35; }
-  .hero .container { position: relative; z-index: 1; }
-  .caption { border-left: 4px solid var(--accent); padding-left: 20px; max-width: 520px; }
-  .caption h1 { font: 700 44px/1.15 var(--font-heading); }
-  .caption p { margin: 12px 0 28px; font-size: 16px; }
+  /* Hero carousel */
+  .hero { position: relative; height: min(100vh, 860px); min-height: 520px; padding-top: var(--header-h); background: #000; color: var(--text-on-dark); overflow: hidden; }
+  .slides { position: absolute; inset: var(--header-h) 0 0 0; }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; pointer-events: none; display: block; }
+  .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
+  .slide .bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(28px) brightness(.55); transform: scale(1.1); }
+  .slide img.art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+  .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,0) 45%); }
+  .caption { position: absolute; left: 80px; bottom: 150px; z-index: 3; border-left: 6px solid var(--accent); padding-left: 16px; max-width: 460px; text-shadow: 0 1px 8px rgba(0,0,0,.7); pointer-events: none; }
+  .caption h1 { font: 700 38px/1.15 var(--font-heading); }
+  .caption p { font-size: 18px; margin-top: 4px; }
+  .arrow { position: absolute; top: calc(50% + var(--header-h) / 2); transform: translateY(-50%); z-index: 4; width: 56px; height: 56px; border: 0; border-radius: 50%; background: rgba(0,0,0,.45); color: #fff; cursor: pointer; display: grid; place-items: center; transition: background .2s; }
+  .arrow:hover { background: rgba(0,0,0,.75); }
+  .arrow svg { width: 26px; height: 26px; }
+  .arrow.prev { left: 40px; } .arrow.next { right: 40px; }
+  .thumbs { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 4; display: flex; gap: 10px; padding: 10px; background: rgba(0,0,0,.6); border-radius: 12px; }
+  .thumbs button { width: 68px; height: 56px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: #222; opacity: .6; transition: opacity .2s, border-color .2s; }
+  .thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumbs button:hover { opacity: 1; }
+  .thumbs button.active { opacity: 1; border-color: var(--accent); }
   .btn { display: inline-block; background: #000; color: #fff; font: 700 12px var(--font-heading); text-transform: uppercase; letter-spacing: .06em; padding: 14px 28px; border-radius: 2px; transition: background .2s, color .2s; }
   .btn:hover { background: var(--accent); color: #000; }
 
@@ -108,7 +120,11 @@
     nav { gap: 16px; }
     nav a { font-size: 13px; border-bottom-width: 3px; }
     nav a:nth-child(n+4) { display: none; }
-    .caption h1 { font-size: 32px; }
+    .hero { height: 70vh; min-height: 440px; }
+    .caption { left: 20px; bottom: 110px; max-width: 70%; }
+    .caption h1 { font-size: 24px; } .caption p { font-size: 14px; }
+    .arrow { width: 40px; height: 40px; } .arrow.prev { left: 10px; } .arrow.next { right: 10px; }
+    .thumbs { gap: 6px; padding: 6px; bottom: 16px; } .thumbs button { width: 44px; height: 38px; }
     .news-row { flex-wrap: wrap; }
   }
 </style>
@@ -129,12 +145,28 @@
 
 <main>
   <div class="hero" id="home">
-    <div class="container">
-      <div class="caption">
-        <h1>Game-ready assets,<br>built for creators.</h1>
-        <p>Browse characters, environments and tools from Gtion Production.</p>
-        <a class="btn" href="#assets">Browse Assets</a>
-      </div>
+    <div class="slides">
+      <a class="slide active" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener" aria-label="NeuralNet Pro">
+        <div class="bg" style="background-image:url('images/neuralnet-pro.webp')"></div><img class="art" src="images/neuralnet-pro.webp" alt="NeuralNet Pro">
+      </a>
+      <a class="slide" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener" aria-label="Grand Pool">
+        <div class="bg" style="background-image:url('images/grand-pool.png')"></div><img class="art" src="images/grand-pool.png" alt="Grand Pool">
+      </a>
+      <a class="slide" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener" aria-label="Addressable Manager">
+        <div class="bg" style="background-image:url('images/addressable-manager.png')"></div><img class="art" src="images/addressable-manager.png" alt="Addressable Manager">
+      </a>
+      <a class="slide" href="products/vector-studio/index.html" aria-label="Vector Studio">
+        <div class="bg" style="background-image:url('images/vector-studio.png')"></div><img class="art" src="images/vector-studio.png" alt="Vector Studio">
+      </a>
+    </div>
+    <div class="caption"><h1 id="cap-title"></h1><p id="cap-sub"></p></div>
+    <button class="arrow prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
+    <button class="arrow next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4l8 8-8 8"/></svg></button>
+    <div class="thumbs">
+      <button type="button" class="active" aria-label="NeuralNet Pro"><img src="images/neuralnet-pro.webp" alt=""></button>
+      <button type="button" aria-label="Grand Pool"><img src="images/grand-pool.png" alt=""></button>
+      <button type="button" aria-label="Addressable Manager"><img src="images/addressable-manager.png" alt=""></button>
+      <button type="button" aria-label="Vector Studio"><img src="images/vector-studio.png" alt=""></button>
     </div>
   </div>
 
@@ -197,6 +229,26 @@
   </div>
 </footer>
 
+<script>
+  // Hero carousel
+  (function () {
+    var data = [["NeuralNet Pro", "Machine Learning"], ["Grand Pool", "Utilities"], ["Addressable Manager", "Utilities"], ["Vector Studio", "Tools"]];
+    var slides = document.querySelectorAll('.slide'), thumbs = document.querySelectorAll('.thumbs button');
+    var title = document.getElementById('cap-title'), sub = document.getElementById('cap-sub');
+    var i = 0, timer;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+      thumbs.forEach(function (t, k) { t.classList.toggle('active', k === i); });
+      title.textContent = data[i][0]; sub.textContent = data[i][1];
+    }
+    function auto() { clearInterval(timer); timer = setInterval(function () { show(i + 1); }, 5000); }
+    document.querySelector('.arrow.prev').addEventListener('click', function () { show(i - 1); auto(); });
+    document.querySelector('.arrow.next').addEventListener('click', function () { show(i + 1); auto(); });
+    thumbs.forEach(function (t, k) { t.addEventListener('click', function () { show(k); auto(); }); });
+    show(0); auto();
+  })();
+</script>
 <script>
   // Move the nav underline to the section currently in view (or just clicked).
   (function () {
