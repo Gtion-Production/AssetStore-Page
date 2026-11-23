@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class="cur d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class="cur d1" href="settings.html">Settings</a><a class=" d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,18 +50,34 @@
         <article class="doc-body">
           <h1>Settings</h1>
           <p class="lead muted">Project-wide defaults.</p>
-          <p>Open <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code> (also in <code>Project Settings</code>). They are stored in a <code>VectoriaSettings</code> asset.</p>
+<p>Open <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code>. It opens in Project Settings, under <b>Vectoria</b>. The values are stored in a <code>VectoriaSettings</code> asset. They are the defaults for every element whose Resolver is set to <b>Default (Project Settings)</b>.</p>
+<img src="img/settings-window.png" alt="Project Settings, Vectoria page: UI Toolkit and uGUI resolvers, Raster size and runtime bake options" style="cursor:zoom-in;display:block;width:100%;max-width:900px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>Resolvers</h2>
 <table>
-  <tr><th>Setting</th><th>Meaning</th></tr>
-  <tr><td>UI Toolkit resolver</td><td>Resolver used by <code>VectoriaImageElement</code> set to Default.</td></tr>
-  <tr><td>uGUI resolver</td><td>Resolver used by <code>VectoriaImage</code> set to Default. Shader unless changed.</td></tr>
-  <tr><td>Raster size</td><td>Raster LOD size in pixels (4&ndash;256, default 64) used by <code>.vpaint</code> files whose Raster size is Default. See <a href="ugui/raster-lod.html"><u>Raster LOD</u></a>.</td></tr>
-  <tr><td>Bake at runtime</td><td>Disabled, Complex Image Only (default) or Always Enabled. Large static artwork is baked into the raster atlas. See <a href="runtime-raster.html"><u>Runtime Raster</u></a>.</td></tr>
-  <tr><td>Minimum shader work (units)</td><td>Complex Image Only: the least shader work (default 15) that gets a runtime tile.</td></tr>
-  <tr><td>Smallest size (px)</td><td>Smallest on-screen size that gets a runtime tile (default 192).</td></tr>
-  <tr><td>Largest, desktop / mobile (px)</td><td>Largest runtime tile: 2048 on desktop and 1024 on mobile by default.</td></tr>
+  <tr><th>Setting</th><th>Default</th><th>Meaning</th></tr>
+  <tr><td>UI Toolkit &rsaquo; VectoriaImageElement</td><td>Automatic</td><td>The resolver for elements set to Default. The shader whenever it can draw everything in the artwork, otherwise a fallback. See <a href="choosing-a-resolver.html#automatic"><u>Automatic</u></a>.</td></tr>
+  <tr><td>uGUI &rsaquo; VectoriaImage</td><td>Shader (GPU)</td><td>The resolver for images set to Default. Crisp at any size, and it needs the <a href="ugui/canvas-setup.html"><u>Canvas channels</u></a>.</td></tr>
 </table>
-          <div class="pager"><a class="prev" href="importer.html"><small>Previous</small>Importer</a><a class="next" href="uitk/index.html"><small>Next</small>UI Toolkit</a></div>
+<p>The <b>Open Resolver Comparison</b> button at the bottom opens the <a href="choosing-a-resolver.html"><u>comparison window</u></a>.</p>
+<h2>Raster</h2>
+<p><b>Small icons (baked tiles, LOD).</b> A static icon at or below this on-screen size (in physical pixels, so a 2x display counts double) swaps from vector to a raster image baked at import, which takes the shader work off the GPU.</p>
+<table>
+  <tr><th>Setting</th><th>Default</th><th>Meaning</th></tr>
+  <tr><td>Raster size (px)</td><td>64</td><td>The Raster LOD size, 4 to 256. Files whose own Raster size is <b>Default</b> follow this value. See <a href="ugui/raster-lod.html"><u>Raster LOD</u></a>.</td></tr>
+</table>
+<p><b>Large artwork (runtime bake).</b> Complex static artwork drawn large is rendered once into the shared raster atlas and drawn from that texture, so the GPU stops evaluating its outlines per pixel. The tile is baked in the frame the icon appears, within the quota below. The shader still draws while the artwork animates. See <a href="runtime-raster.html"><u>Runtime Raster</u></a>.</p>
+<table>
+  <tr><th>Setting</th><th>Default</th><th>Meaning</th></tr>
+  <tr><td>Bake at runtime</td><td>Complex Image Only</td><td><b>Disabled</b>: nothing is baked. <b>Complex Image Only</b>: only artwork whose shader work reaches the minimum. <b>Always Enabled</b>: all static artwork in the size range.</td></tr>
+  <tr><td>Min shader work</td><td>15</td><td>The least shader work, in units, that gets a tile. The <a href="../painter/interface.html#cost-meter"><u>cost meter</u></a> in the painter shows the units. Raise it on fast hardware, or when memory is short. Lower it on slow GPUs.</td></tr>
+  <tr><td>Smallest size (px)</td><td>192</td><td>The smallest on-screen size that gets a tile.</td></tr>
+  <tr><td>Largest, mobile (px)</td><td>1024</td><td>The largest tile on mobile.</td></tr>
+  <tr><td>Largest, desktop (px)</td><td>2048</td><td>The largest tile on desktop.</td></tr>
+  <tr><td>Bake quota per frame (MP)</td><td>2.1</td><td>How many megapixels of tiles may be baked in the frame an icon appears (2.1 is about one 1450 px tile). The first tile of a frame always fits. The rest wait for their turn, one per frame. 0 bakes nothing in the first frame.</td></tr>
+  <tr><td>Over the quota, show</td><td>Raster LOD (low res)</td><td>What an icon shows while its tile waits. <b>Raster LOD (low res)</b>: the small tile baked at import (the shader when the artwork has none). <b>Shader (full cost)</b>: the shader draws it as before. <b>Invisible</b>: nothing until the tile is ready.</td></tr>
+</table>
+<p>Tiles step about 1.4x in size. The atlas keeps at most 4 pages on desktop and 2 on mobile, and when it is full the shader keeps drawing. A change to the largest size applies once the atlas next empties (idle for 30 seconds, or on entering Play mode).</p>
+          <div class="pager"><a class="prev" href="importer.html"><small>Previous</small>Importer</a><a class="next" href="troubleshooting.html"><small>Next</small>Troubleshooting</a></div>
         </article>
       </div>
     </div>

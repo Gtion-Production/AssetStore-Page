@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class="cur d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class="cur d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><a class=" d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -49,20 +49,30 @@
         </aside>
         <article class="doc-body">
           <h1>Importer</h1>
-          <p class="lead muted">Artboard asset types, UI Vectoria and raster tiles.</p>
-          <p>Selecting a <code>.vpaint</code> in the Project window shows the importer. Each artboard has an <b>Asset Type</b>:</p>
+          <p class="lead muted">Artboard asset types, UI Vectoria and import-time baking.</p>
+<p>Select a <code>.vpaint</code> in the Project window to see its importer in the Inspector. It decides what Unity makes from each artboard, and it does the baking that makes the artwork ready for runtime.</p>
+<img src="img/importer-inspector.png" alt="The importer inspector of a .vpaint: Document Settings, Artboard Settings with Raster LOD, and the file size line" style="cursor:zoom-in;display:block;width:100%;max-width:600px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>What is in the inspector</h2>
+<ul>
+  <li><b>Open in Vectoria</b> opens the file in the painter, and <b>Export</b> opens the export dialog for it.</li>
+  <li><b>Document Settings &rsaquo; Raster &rsaquo; Atlas Optimization</b> chooses where the baked raster tiles go. <b>Runtime Atlas (Auto)</b> is the default: tiles are copied into one shared atlas at runtime. <b>Unity Sprite Atlas (Manual)</b> saves them as Sprite assets instead, see <a href="ugui/raster-lod.html"><u>Raster LOD</u></a>.</li>
+  <li><b>Artboard Settings</b> has one row per artboard, with its <b>Asset Type</b> (below). For a UI Vectoria artboard it shows <b>Raster LOD</b> (a checkbox and the size, <b>Raster size</b>, where Default follows <a href="settings.html"><u>Settings</u></a>) and a <b>Preview</b>.</li>
+  <li>The line under the settings shows the file size, the memory it takes (including what the raster tiles add) and a mesh complexity estimate (about how heavy the MeshBatch path would be). It is not the shader <em>cost meter</em> that the painter shows, which rates the Shader resolver.</li>
+  <li><b>Revert</b> and <b>Apply</b> work as on any importer. Multi-selection edits several files at once.</li>
+</ul>
+<h2>Asset types</h2>
+<p>Set every artboard that you show with Vectoria Image to <b>UI Vectoria</b>. That is the type that gets the import-time baking below. The inspector shows the type of each artboard, so you can check it there.</p>
 <table>
   <tr><th>Asset type</th><th>Result</th></tr>
-  <tr><td>UI Vectoria (vector)</td><td>A small <code>UIVector</code> sub-asset: the document plus the artboard id. No bitmap, no mesh. Drop it on the small field beside the <b>Artboard</b> dropdown of a uGUI <code>VectoriaImage</code>, or on the <code>artwork</code> field of a <code>VectoriaImageElement</code>, and both document and artboard are set. Resolvers work as usual.</td></tr>
-  <tr><td>Textured Sprite (rasterized)</td><td>The artboard drawn into a bitmap (size &times; Scale) wrapped in a Sprite. Fixed resolution. For SpriteRenderer, UI Image and atlases.</td></tr>
+  <tr><td>UI Vectoria (vector)</td><td>A small <code>UIVector</code> sub-asset: the document plus the artboard id. No bitmap, no mesh. Use this for Vectoria Image. Pick it with the magnifier beside the Artboard dropdown of a <code>VectoriaImage</code> or <code>VectoriaImageElement</code>, and both document and artboard are set. All resolvers work as usual.</td></tr>
+  <tr><td>Textured Sprite (rasterized)</td><td>The artboard drawn into a bitmap (size x Scale) wrapped in a Sprite. Fixed resolution. For <code>SpriteRenderer</code>, UI <code>Image</code> and sprite atlases.</td></tr>
   <tr><td>Texture 2D (rasterized)</td><td>A plain bitmap texture. Fixed resolution.</td></tr>
-  <tr><td>Vector Sprite (vector)</td><td>A tessellated triangle mesh for SpriteRenderer and other 2D uses. Sharp at any size.</td></tr>
-  <tr><td>UI SVG Image (vector)</td><td>A tessellated mesh for the uGUI SVGImage component.</td></tr>
-  <tr><td>None</td><td>Nothing generated; the artboard cannot be used as an asset.</td></tr>
+  <tr><td>Vector Sprite (vector)</td><td>A tessellated triangle mesh for <code>SpriteRenderer</code> and other 2D uses. Sharp at any size.</td></tr>
+  <tr><td>UI SVG Image (vector)</td><td>A tessellated mesh for the uGUI <code>SVGImage</code> component.</td></tr>
+  <tr><td>None</td><td>Nothing is generated. The artboard cannot be used as an asset.</td></tr>
 </table>
 <h2>Shader Bake and Raster LOD</h2>
-<p>These apply only to artboards set to <b>UI Vectoria</b>. The importer precompiles the shader data (the Shader Bake sub-asset) and bakes raster tiles for them; the Raster LOD box appears only when the file has such an artboard. Other artboards are compiled when first drawn. Raster LOD is explained in <a href="ugui/raster-lod.html"><u>Raster LOD</u></a>.</p>
-<p>The importer shows file size and memory, including what the raster tiles add.</p>
+<p>These apply only to artboards set to <b>UI Vectoria</b>. For them the importer precompiles the shader data (the <b>Shader Bake</b> sub-asset) and bakes the raster tiles, so the artwork is ready on the first frame. The Raster LOD box appears only when the file has such an artboard. Other artboards are compiled when they are first drawn.</p>
 <p>The importer's <b>Migrate</b> command is at <code>Tools &rsaquo; Vectoria &rsaquo; Migrate .vpaint Import Settings</code>.</p>
           <div class="pager"><a class="prev" href="runtime-raster.html"><small>Previous</small>Runtime Raster</a><a class="next" href="settings.html"><small>Next</small>Settings</a></div>
         </article>

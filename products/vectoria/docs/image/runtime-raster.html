@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class="cur d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class="cur d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><a class=" d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -53,8 +53,25 @@
           <p>A large icon with many outlines or gradients is costly for the shader, because the cost is paid for every pixel, every frame. Runtime Raster renders such an icon once into the shared <b>raster atlas</b> and draws it from that texture from then on.</p>
 <figure>
   <img src="img/runtime-raster-flow.svg" alt="Three steps: the shader draws the icon in frame one, the icon is baked into the atlas in frame two, and later frames read the atlas texture">
-  <figcaption>The first frames use the shader, so nothing pops. After the bake an icon costs one texture read per pixel.</figcaption>
+  <figcaption>The tile is baked in the frame the icon appears, within a per-frame quota, so a heavy icon does not spend frames on the shader first. After the bake an icon costs one texture read per pixel.</figcaption>
 </figure>
+<h2 id="measured">Measured: Runtime Raster on and off</h2>
+<p>Sixteen copies of one heavy icon at 1400 px, in Play mode at 1920 x 1080, timed with Unity's FrameTimingManager on an RTX 3060 laptop. The icons are the same artwork, so they share one tile and it is baked once. Your numbers depend on the GPU, the resolution and the artwork.</p>
+<h3 id="first-frame">First frame</h3>
+<p>The frame the icons appear in. With Runtime Raster on, the tile is baked in that frame, so it is the most expensive frame (the worst frame measured).</p>
+<table>
+  <tr><th></th><th>Runtime Raster off</th><th>Runtime Raster on</th></tr>
+  <tr><td>GPU</td><td>N/A</td><td>about 1.2 ms</td></tr>
+  <tr><td>CPU, main thread</td><td>N/A</td><td>about 1.3 ms</td></tr>
+</table>
+<h3 id="later-frames">Later frames</h3>
+<p>Every frame after that, once the icons are on screen: the same scene with Runtime Raster off (the shader draws every icon) and on (the icons are drawn from baked tiles). Times are per frame.</p>
+<table>
+  <tr><th></th><th>Runtime Raster off</th><th>Runtime Raster on</th></tr>
+  <tr><td>GPU</td><td>about 10.7 ms</td><td>about 1.1 ms</td></tr>
+  <tr><td>CPU, main thread</td><td>about 6.9 ms (mostly waiting for the GPU)</td><td>about 0.4 ms</td></tr>
+  <tr><td>CPU, render thread</td><td>about 0.5 ms</td><td>about 0.7 ms</td></tr>
+</table>
 <h2>Turn it on</h2>
 <p>Open <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code> and find <b>Large artwork</b> under Raster. It is a feature of the Shader resolver and works in uGUI and UI Toolkit.</p>
 <table>
@@ -63,7 +80,29 @@
   <tr><td>Minimum shader work (units)</td><td>Complex Image Only only. Default 15.</td></tr>
   <tr><td>Smallest size (px)</td><td>Artwork drawn below this size keeps using the shader or its Raster LOD tile. Default 192.</td></tr>
   <tr><td>Largest, desktop / mobile (px)</td><td>Largest tile. Default 2048 on desktop and 1024 on mobile. Larger artwork keeps using the shader.</td></tr>
+  <tr><td>Bake quota per frame (MP)</td><td>Megapixels of tiles baked in the frame an icon appears. Default 2.1. See <a href="#quota"><u>Bake quota and waiting</u></a>.</td></tr>
+  <tr><td>Over the quota, show</td><td>Raster LOD (low res, default), Shader or Invisible while a tile waits.</td></tr>
 </table>
+<h2 id="quota">Bake quota and waiting</h2>
+<p>A bake costs about one shader draw of the artwork, so baking many different heavy icons in the same frame would be a spike of its own. A <b>quota</b> limits it. The tile of the first heavy icon in a frame is always baked right away, before the icon is drawn. More tiles are baked in the same frame only while their pixels fit in <b>Bake quota per frame (MP)</b>. The rest wait, and the atlas bakes one per frame.</p>
+<p>While a tile waits, the setting <b>Over the quota, show</b> decides what the icon shows:</p>
+<table>
+  <tr><th>Option</th><th>The icon shows</th><th>Good for</th></tr>
+  <tr><td>Raster LOD (low res) &ndash; default</td><td>The small tile baked at import, scaled up. The shader when the artwork has no import tile.</td><td>No spike and no empty space. It looks soft for a moment.</td></tr>
+  <tr><td>Shader (full cost)</td><td>The shader, at its full cost, as in earlier versions.</td><td>Sharp from the first frame, when the GPU has room.</td></tr>
+  <tr><td>Invisible</td><td>Nothing until the tile is ready.</td><td>The cheapest frames. Icons pop in, so use it behind a fade.</td></tr>
+</table>
+<p>In UI Toolkit the tile is baked in the same frame only when the atlas texture already exists and has room, because UI Toolkit binds a new atlas texture a little later. Otherwise the icon waits like one over the quota.</p>
+<h2 id="prewarm">Prewarm in a loading screen</h2>
+<p>The first heavy icon of a session also pays to create the atlas page. To move that and the bake into a loading screen, bake the tile before the icon appears:</p>
+<pre><code>using Vectoria;
+
+// physical pixels: the size the icon will have on screen
+bool baked = VectoriaRaster.Prewarm(document, artboardId, sizePx: 1400f);
+
+// later, when the scene is up (optional, tiles are also released after a hold time)
+VectoriaRaster.ReleasePrewarmed();</code></pre>
+<p><code>Prewarm</code> returns false when that artwork would not get a tile: runtime raster is off, the artwork is not heavy enough in Complex Image Only mode, or the size is outside the range in Settings. The tile is held for 30 seconds by default (the <code>holdSeconds</code> argument), long enough for the icon to appear and take it over. Tiles come in steps, so a size in the same step as the real one is enough.</p>
 <h2>Complex Image Only</h2>
 <p>A tile costs memory, so it only pays off for artwork the shader finds expensive. Vectoria measures that in <b>shader work units</b>: the outline segments the shader checks per pixel (weighted by the area each shape covers) plus 8 for each gradient. Units do not depend on the GPU or on the size the icon is drawn at, so the same minimum means the same everywhere.</p>
 <figure>
@@ -95,12 +134,12 @@
 <ul>
   <li>When baking is on, a small warm-up runs after the first scene loads (shaders, materials and the GPU's pipeline state). It makes the first real bake cost about 1.4 ms of CPU instead of about 5 ms in the Editor.</li>
   <li>Each later bake costs about 0.2 ms of CPU. The GPU time is about one shader draw of that artwork at that size, paid once per tile.</li>
-  <li>At most one bake runs per pump, so many icons appearing together are baked over a few frames.</li>
-  <li>The tile matches what the shader draws to within 1/255. In a test, four 1400 px copies of a heavy icon went from 9.2 ms to 1.9 ms per frame.</li>
+  <li>Inside the quota the bake runs in the frame the icon appears. Beyond it, at most one bake runs per frame, so many different heavy icons appearing together are baked over a few frames.</li>
+  <li>The tile matches what the shader draws to within 1/255.</li>
 </ul>
 <h2>Runtime Raster or Raster LOD?</h2>
 <p>They work together. <a href="ugui/raster-lod.html"><u>Raster LOD</u></a> covers small icons with tiles baked at import, so they are ready on the first frame and need no GPU bake; it is also the only path for Sprite Atlas output. Runtime Raster covers the large, costly ones. Between the two sizes the shader draws, where it is cheap.</p>
-          <div class="pager"><a class="prev" href="optimization.html"><small>Previous</small>How Drawing Is Optimized</a><a class="next" href="importer.html"><small>Next</small>Importer</a></div>
+          <div class="pager"><a class="prev" href="optimization.html"><small>Previous</small>How Rendering is Optimized</a><a class="next" href="importer.html"><small>Next</small>Importer</a></div>
         </article>
       </div>
     </div>

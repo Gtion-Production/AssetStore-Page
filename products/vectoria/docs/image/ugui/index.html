@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index" open><summary><a class="cur d1" href="index.html">uGUI</a></summary><a class=" d2" href="canvas-setup.html">Canvas Setup</a><a class=" d2" href="raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Rendering is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><a class=" d1" href="../troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index" open><summary><a class="cur d1" href="index.html">uGUI</a></summary><a class=" d2" href="canvas-setup.html">Canvas Setup</a><a class=" d2" href="raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,34 +50,50 @@
         <article class="doc-body">
           <h1>uGUI</h1>
           <p class="lead muted">VectoriaImage in the uGUI Canvas.</p>
-          <p><code>VectoriaImage</code> (namespace <code>Vectoria</code>) is an <code>Image</code>, so it takes part in masking, raycasting and layout like one. Create it with <code>GameObject &rsaquo; UI &rsaquo; Vector Image</code> or add the component <b>UI/Gtion/Vectoria Image</b>.</p>
-<h2>Properties</h2>
+<p><code>VectoriaImage</code> (namespace <code>Vectoria</code>) is an <code>Image</code>, so it takes part in masking, raycasting and layout like one. It draws one artboard of a <code>.vpaint</code>.</p>
+<h2>Add it to a Canvas</h2>
+<ol>
+  <li>Create it with <code>GameObject &rsaquo; UI (Canvas) &rsaquo; Vectoria Image</code>, or add the component <code>UI &rsaquo; Gtion &rsaquo; Vectoria Image</code> to a GameObject under a Canvas.</li>
+  <li>Set <b>VPaint Document</b> to your <code>.vpaint</code> and pick the <b>Artboard</b>. The button beside the document opens it in the painter (<b>Edit</b>, or <b>Create</b> when the field is empty).</li>
+  <li>If the inspector warns about Canvas channels, press <b>Fix Canvas Channels</b>. See <a href="canvas-setup.html"><u>Canvas Setup</u></a>.</li>
+</ol>
+<h2>The inspector</h2>
+<img src="../img/ugui-inspector.png" alt="The Vectoria Image inspector with Source, Rendering, Image, Animation and Interaction sections" style="cursor:zoom-in;display:block;width:100%;max-width:600px;height:auto;border-radius:4px;margin:10px 0 0">
 <table>
-  <tr><th>Property</th><th>Meaning</th></tr>
-  <tr><td>Document</td><td>The <code>.vpaint</code> (<code>document</code>).</td></tr>
-  <tr><td>Artboard</td><td>Which artboard (<code>artboardId</code>). A small field beside it accepts a <b>UI Vectoria</b> sub-asset (<code>artwork</code>) that sets both.</td></tr>
-  <tr><td>Scale Mode / Uv</td><td>As in UI Toolkit.</td></tr>
-  <tr><td>Resolver</td><td><b>Default (Project Settings)</b>, <b>Shader (GPU)</b> or <b>MeshBatch (CPU)</b>.</td></tr>
-  <tr><td>Anti Alias</td><td>MeshBatch fringe.</td></tr>
+  <tr><th>Section</th><th>Field</th><th>Meaning</th></tr>
+  <tr><td rowspan="2">Source</td><td>VPaint Document</td><td>The <code>.vpaint</code> to draw.</td></tr>
+  <tr><td>Artboard</td><td>Which artboard to show. The magnifier beside it lists the project's UI Vectoria artboards, and picking one sets the document and the artboard together.</td></tr>
+  <tr><td rowspan="2">Rendering</td><td>Resolver</td><td><b>Default (Project Settings)</b>, <b>Shader (GPU)</b> or <b>MeshBatch (CPU)</b>. Painter2D (UI Toolkit's own vector painter) is not available in uGUI.</td></tr>
+  <tr><td>Anti-Alias</td><td>MeshBatch only: soften edges with a one-pixel fringe. It costs about twice the vertices, so leave it off when MSAA is on.</td></tr>
+  <tr><td rowspan="4">Image</td><td>Scale Mode</td><td><code>Scale To Fit</code>, <code>Scale And Crop</code> or <code>Stretch To Fill</code>.</td></tr>
+  <tr><td>Image Type</td><td><b>Simple</b>, <b>Tiled</b> (the artboard repeats; <b>Pixels Per Unit Multiplier</b> sets the tile size, higher is smaller) or <b>Filled</b> (<b>Fill Method</b>, <b>Fill Origin</b>, <b>Fill Amount</b>, and <b>Clockwise</b> for radial fills). Sliced is not supported.</td></tr>
+  <tr><td>Color</td><td>Tints the artwork.</td></tr>
+  <tr><td>Advanced &rsaquo; UV Rect</td><td>Show only a window of the artboard.</td></tr>
+  <tr><td>Animation</td><td>Records [Exp]</td><td>Start values for animation records.</td></tr>
+  <tr><td rowspan="3">Interaction</td><td>Raycast Target</td><td>As on any Graphic: whether the image receives pointer events. Turn it off for decoration so it does not block clicks.</td></tr>
+  <tr><td>Raycast Padding</td><td>Grows or shrinks the clickable area.</td></tr>
+  <tr><td>Maskable</td><td>Whether Masks and RectMask2D affect it.</td></tr>
 </table>
 <h2>Resolvers in uGUI</h2>
 <ul>
-  <li><b>Shader</b> (the default): one quad per image, a shader evaluates the outlines. All shader-drawn images on a Canvas share one material and one data texture, so they batch together until a different material (a Mask or a Text) sits between them in hierarchy order. Needs the Canvas channels, see <a href="canvas-setup.html"><u>Canvas setup</u></a>.</li>
-  <li><b>MeshBatch</b>: a tessellated mesh fed through <code>OnPopulateMesh</code>. No shader or Canvas channels needed. Use a <code>RectMask2D</code> to crop.</li>
+  <li><b>Shader</b> (the default): one quad per image, and a shader evaluates the outlines. All shader-drawn images on a Canvas share one material and one data texture, so they batch together until a different material (a Mask or a Text) sits between them in hierarchy order. It needs the Canvas channels.</li>
+  <li><b>MeshBatch</b>: a tessellated mesh handed to <code>OnPopulateMesh</code>. No shader or Canvas channels needed. Add a <code>RectMask2D</code> to crop <code>Scale And Crop</code> or a UV window.</li>
 </ul>
-<p>Limits are those of the shader renderer: no live effects, patterns, text, images or blend modes There is no Painter2D in uGUI.</p>
-<h2>Code</h2>
+<p>Limits are those of the shader renderer: no live effects, patterns, text, images or blend modes. See <a href="../choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</p>
+<h2>In code</h2>
 <pre><code>var img = GetComponent&lt;VectoriaImage&gt;();
 img.document = doc;
-img.resolver = VectorImageResolver.Shader;
-</code></pre>
+img.resolver = VectorImageResolver.Shader;   // UI Toolkit uses VectorResolver instead
+
+if (!img.CanvasChannelsOk) img.FixCanvasChannels();
+bool tile = img.isRasterDrawn;   // currently drawn from a raster tile</code></pre>
 <h2>In this section</h2>
 <ul>
-  <li><a href="canvas-setup.html"><u>Canvas setup</u></a></li>
-  <li><a href="raster-lod.html"><u>Raster LOD</u></a></li>
+  <li><a href="canvas-setup.html"><u>Canvas Setup</u></a>: the shader channels the Shader resolver needs</li>
+  <li><a href="raster-lod.html"><u>Raster LOD</u></a>: pre-baked tiles for small icons</li>
 </ul>
 <h2>Demo</h2>
-<p><code>Demo/RealisticHud/Scenes</code> has <code>RealisticHudUGUI</code> (vector) and <code>RealisticHudUGUI_UnityRaster</code> (raster sprites from a 2K atlas, for comparison).</p>
+<p><code>Demo/RealisticHud/Scenes</code> has <code>RealisticHudUGUI</code> (vector icons) and <code>RealisticHudUGUI_UnityRaster</code> (raster sprites from a 2K atlas, for comparison).</p>
           <div class="pager"><a class="prev" href="../uitk/batch-group.html"><small>Previous</small>VectorBatchGroup</a><a class="next" href="canvas-setup.html"><small>Next</small>Canvas Setup</a></div>
         </article>
       </div>

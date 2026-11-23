@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index" open><summary><a class="anc d1" href="index.html">UI Toolkit</a></summary><a class="cur d2" href="shader-setup.html">Shader Setup</a><a class=" d2" href="batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../ugui/index.html">uGUI</a></summary><a class=" d2" href="../ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Rendering is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><a class=" d1" href="../troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index" open><summary><a class="anc d1" href="index.html">UI Toolkit</a></summary><a class="cur d2" href="shader-setup.html">Shader Setup</a><a class=" d2" href="batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../ugui/index.html">uGUI</a></summary><a class=" d2" href="../ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,22 +50,26 @@
         <article class="doc-body">
           <h1>Shader Setup</h1>
           <p class="lead muted">Requirements and limits of GPU drawing in UI Toolkit.</p>
-          <p>The Shader resolver draws with a GPU shader: nothing is tessellated, each icon is one quad, and the fragment shader works out the shape per pixel. Edges are crisp at any size.</p>
+<p>The Shader resolver draws with a GPU shader. Nothing is tessellated: each icon is one quad, and the fragment shader works out the shape per pixel. Edges are crisp at any size, and animating an icon only sends a few numbers to the GPU.</p>
 <h2>Required setup</h2>
 <ol>
-  <li>URP (custom materials in UI Toolkit).</li>
-  <li>In the <b>PanelSettings</b> asset, <code>Buffer Management &rsaquo; Extra Vertex Channels</code>: tick <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>. A warning is logged when they are missing. Each channel adds 16 bytes per vertex for the panel.</li>
+  <li><b>URP</b>, in a Unity version with custom materials in UI Toolkit (6000.3 or newer).</li>
+  <li>In the <b>PanelSettings</b> asset, under <b>Buffer Management</b>, set <b>Extra Vertex Channels</b> to include <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>. Each channel adds 16 bytes to every vertex of that panel, so the three add 48 bytes. Leave the other fields as they are.</li>
 </ol>
-<p>If the setup is missing, <code>resolver="Shader"</code> draws nothing and logs a warning. <b>Automatic</b> checks it and falls back instead.</p>
+<img src="../img/panel-settings-channels.png" alt="PanelSettings, Buffer Management: Extra Vertex Channels set to Tex Coord 1, 2 and 3" style="cursor:zoom-in;display:block;width:100%;max-width:560px;height:auto;border-radius:4px;margin:10px 0 0">
+<p>If the setup is missing, an element set to <code>Shader</code> draws nothing and logs a warning. <b>Automatic</b> checks the setup and falls back to another resolver instead.</p>
 <h2>Draw calls</h2>
-<p>All shader-drawn elements with the same parent share one mesh and one draw call, whatever their artwork. Ten different <code>.vpaint</code> files in one grid are still one call. One mesh holds about 16,000 icons. To share across a deeper hierarchy, use <a href="batch-group.html"><u>VectorBatchGroup</u></a>.</p>
+<p>Shader-drawn elements in the same group share one mesh, and because they share one material they draw in one call, whatever their artwork. By default a group is a parent element, and you can define a bigger one with <a href="batch-group.html"><u>VectorBatchGroup</u></a>. Ten different <code>.vpaint</code> files in one grid are still one call, with no texture atlas needed. One mesh holds about 16,000 icons.</p>
+<p>In UI Builder the shared mesh shows up as a <code>VectorShaderLayer</code> element next to the icons. It is created for you.</p>
+<img src="../img/batching.svg" alt="A grid of icons, then one shared mesh with one quad per icon, then a single draw call" style="display:block;width:100%;max-width:760px;height:auto;margin:10px 0 0">
 <h2>What it draws</h2>
-<p>Solid fills and strokes, linear and radial gradients (up to 8 stops), freeform gradients, gradient strokes, miter/bevel/round joins, round and butt caps, dashes, compound paths (even-odd), clip groups, scale modes and <code>uv</code> cropping.</p>
+<p>Solid fills and strokes, linear and radial gradients (up to 8 stops), freeform gradients, gradient strokes, miter, bevel and round joins, round and butt caps, dashes, compound paths (even-odd), clip groups, the three scale modes and <code>uv</code> cropping. Records move points, change colours, stroke width and opacity (up to 8 records per artwork).</p>
 <h2>Limits</h2>
 <ul>
-  <li>Not drawn: live effects, patterns, text, images, symbols, brushes, blend modes.</li>
-  <li>Dashes have flat ends. Radial gradients ignore the focus offset.</li>
-  <li>The element's own opacity, visibility and transform do not apply to the shared mesh.</li>
+  <li><b>Not drawn:</b> live effects, patterns, text, images, symbols, brushes and blend modes. A warning is logged when the compiler meets one it can detect.</li>
+  <li>Dashes have flat ends, whatever the cap setting. Radial gradients ignore the focus offset.</li>
+  <li>The element's own opacity, visibility and transform animation do not apply, because the icons share one mesh.</li>
+  <li>The cost grows with the number of pixels an icon covers and its outline segments, not with the number of icons. The <a href="../../painter/interface.html#cost-meter"><u>cost meter</u></a> in the painter rates it.</li>
 </ul>
           <div class="pager"><a class="prev" href="index.html"><small>Previous</small>UI Toolkit</a><a class="next" href="batch-group.html"><small>Next</small>VectorBatchGroup</a></div>
         </article>

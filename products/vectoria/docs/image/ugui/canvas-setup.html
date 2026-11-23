@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index" open><summary><a class="anc d1" href="index.html">uGUI</a></summary><a class="cur d2" href="canvas-setup.html">Canvas Setup</a><a class=" d2" href="raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Rendering is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><a class=" d1" href="../troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index" open><summary><a class="anc d1" href="index.html">uGUI</a></summary><a class="cur d2" href="canvas-setup.html">Canvas Setup</a><a class=" d2" href="raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,12 +50,15 @@
         <article class="doc-body">
           <h1>Canvas Setup</h1>
           <p class="lead muted">Additional shader channels for the Shader resolver.</p>
-          <p>With the <b>Shader</b> resolver the Canvas must carry the additional shader channels <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>.</p>
-<ol>
-  <li>Select the Canvas, open <code>Additional Shader Channels</code> and tick TexCoord1, TexCoord2, TexCoord3.</li>
-  <li>Or select a <code>VectoriaImage</code>: the inspector shows a warning with a <b>Fix</b> button. In code call <code>image.FixCanvasChannels()</code>; <code>image.CanvasChannelsOk</code> tells whether they are set.</li>
-</ol>
-<p>If the channels are missing a warning is logged. The <b>MeshBatch</b> resolver needs none of this.</p>
+<p>The Shader resolver passes its per-image data through the vertex channels <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>. The Canvas that draws the image must have them switched on, or the image will not draw.</p>
+<h2>Fix it</h2>
+<ul>
+  <li><b>From the image:</b> select the <code>VectoriaImage</code>. When channels are missing, the inspector shows a warning with a <b>Fix Canvas Channels</b> button. Press it.</li>
+  <li><b>On the Canvas:</b> select the Canvas, open <b>Additional Shader Channels</b> and tick <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>.</li>
+  <li><b>In code:</b> <code>image.FixCanvasChannels()</code>. <code>image.CanvasChannelsOk</code> tells whether they are set.</li>
+</ul>
+<img src="../img/canvas-channels.png" alt="Canvas component with Additional Shader Channels set to TexCoord1, TexCoord2, TexCoord3" style="cursor:zoom-in;display:block;width:100%;max-width:600px;height:auto;border-radius:4px;margin:10px 0 0">
+<p>If the channels are missing, a warning is also logged. The <b>MeshBatch</b> resolver needs none of this, so it is a quick way to check whether a missing channel is why an image does not draw.</p>
           <div class="pager"><a class="prev" href="index.html"><small>Previous</small>uGUI</a><a class="next" href="raster-lod.html"><small>Next</small>Raster LOD</a></div>
         </article>
       </div>

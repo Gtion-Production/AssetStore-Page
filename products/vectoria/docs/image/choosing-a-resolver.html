@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class="cur d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class="cur d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><a class=" d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,28 +50,73 @@
         <article class="doc-body">
           <h1>Choosing a Resolver</h1>
           <p class="lead muted">Automatic, Shader, MeshBatch and Painter2D compared.</p>
-          <p>A resolver decides how artwork is drawn. Leave it on <b>Automatic</b> unless you need something specific.</p>
+<p>A <b>resolver</b> decides how a <code>.vpaint</code> is drawn at runtime. Leave it on the default unless you have a reason to change it. In UI Toolkit the default is <b>Automatic</b>, and in uGUI it is <b>Shader</b>. Both come from <a href="settings.html"><u>Settings</u></a>, and you can override them on a single element.</p>
+<img src="img/uitk-resolver-dropdown.png" alt="The Resolver dropdown in UI Builder: Default, Automatic, Painter2D, MeshBatch, Shader" style="cursor:zoom-in;display:block;width:100%;max-width:600px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>The four resolvers</h2>
 <table>
-  <tr><th></th><th>Painter2D (UITK only)</th><th>MeshBatch</th><th>Shader</th></tr>
-  <tr><td>How</td><td>UI Toolkit's vector API, one pass per element</td><td>One shared mesh moved by a Burst job</td><td>One quad per icon, a shader draws the artwork</td></tr>
-  <tr><td>Quality</td><td>Full: anti-aliasing, joins, caps, dashes, effects, any fill</td><td>Approximate: optional one-pixel fringe, plain strokes, no effects, at most 4 gradient stops, no pattern or freeform fills</td><td>Crisp at any size; gradients (8 stops), joins, caps, dashes, compound paths, clips; no effects, patterns, text, images, symbols</td></tr>
-  <tr><td>Setup</td><td>None</td><td>None</td><td>URP (UITK), extra vertex channels / Canvas channels</td></tr>
-  <tr><td>Main cost</td><td>CPU</td><td>CPU (one Burst job)</td><td>GPU</td></tr>
-  <tr><td>Best for</td><td>Static art, effects, highest quality, a few icons</td><td>Many icons when the GPU is the bottleneck</td><td>Lists, grids and HUDs with hundreds to thousands of icons</td></tr>
+  <tr><th></th><th>Shader</th><th>MeshBatch</th><th>Painter2D (UI Toolkit only)</th></tr>
+  <tr><td>How</td><td>One quad per icon, and a shader draws the artwork</td><td>One shared mesh moved by a Burst job</td><td>UI Toolkit's vector painter, one pass per element</td></tr>
+  <tr><td>Quality</td><td>Crisp at any size. Gradients (8 stops), joins, caps, dashes, compound paths, clips. No effects, patterns, text, images or symbols</td><td>Approximate. Optional one-pixel fringe, plain strokes, no effects, at most 4 gradient stops, no pattern or freeform fills</td><td>Full: anti-aliasing, joins, caps, dashes, effects, any fill</td></tr>
+  <tr><td>Setup</td><td>URP and panel channels (UI Toolkit), Canvas channels (uGUI)</td><td>None</td><td>None</td></tr>
+  <tr><td>Main cost</td><td>GPU (a fragment shader per icon), very little CPU</td><td>CPU (one Burst job for all icons), very little GPU</td><td>CPU, the most: one painter pass per element</td></tr>
+  <tr><td>Draw calls for a grid</td><td>One for all artworks of a parent</td><td>A few per artwork</td><td>One per element</td></tr>
+  <tr><td>Cropping (Scale And Crop, uv)</td><td>Works, cropped by geometry</td><td>Falls back to a mesh of its own</td><td>Works</td></tr>
+  <tr><td>Best for</td><td>Lists, grids and HUDs with hundreds to thousands of icons</td><td>Many animated icons when the GPU is the bottleneck, or the shader cannot be used</td><td>Static art, effects, the highest quality, a few icons</td></tr>
 </table>
-<h2>Automatic</h2>
-<p>Uses the <b>Shader</b> whenever it can draw everything in the artwork (no effects, patterns, text, images, symbols, brushes or blends) and the shader and its channels are available. Otherwise, in UI Toolkit it falls back to Painter2D while the element is still and MeshBatch while the artwork changes, then back to Painter2D after half a second without changes. In a parent with 16 or more children it starts on MeshBatch. In uGUI there is no Painter2D, so the choice is Shader or MeshBatch.</p>
+<p>Everything in the table is also in a comparison window. Press the <b>?</b> button beside the Resolver field in UI Builder, or <b>Open Resolver Comparison</b> in <a href="settings.html"><u>Settings</u></a>.</p>
+<img src="img/resolver-comparison.png" alt="The Resolver comparison window, with a table of the three resolvers and an Animation Records table" style="cursor:zoom-in;display:block;width:100%;max-width:760px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2 id="automatic">Automatic</h2>
+<p>Automatic picks for you. It uses the <b>Shader</b> whenever the shader can draw the whole artwork and the setup is in place. That means:</p>
+<ul>
+  <li>the artwork has no effects, patterns, text, images, symbols, brushes or blends;</li>
+  <li>at most 8 records animate, and there is no dash cap or radial focus the shader would have to ignore;</li>
+  <li>URP and the panel's extra vertex channels are available.</li>
+</ul>
+<p>The artwork is checked once per document. When the shader cannot draw it, Automatic falls back:</p>
+<ul>
+  <li><b>Painter2D</b> while the element is still.</li>
+  <li><b>MeshBatch</b> while its record parameters animate (<code>SetParam</code>, a running tween, or an instance change), and back to Painter2D after half a second without changes.</li>
+  <li>Inside a grid or list (a parent with 16 or more children) the fallback starts on MeshBatch right away.</li>
+</ul>
+<p>Each switch can show a small change in edge softness. If that bothers you, set the resolver by hand. Automatic exists in UI Toolkit only. In uGUI the default is Shader.</p>
 <h2>Which one to pick</h2>
 <ul>
-  <li>Default: Automatic.</li>
-  <li>Art with effects, patterns, text or images: Painter2D (Automatic does this by itself).</li>
-  <li>A grid or list of many icons where the shader cannot be used, or the GPU is the limit: MeshBatch.</li>
-  <li>GPU has headroom and CPU is busy: Shader.</li>
+  <li><b>Default:</b> leave it alone.</li>
+  <li><b>Effects, patterns, text or images in the artwork:</b> Painter2D. Automatic chooses it for you.</li>
+  <li><b>The best possible quality for a few icons:</b> Painter2D.</li>
+  <li><b>A grid or list of many animated icons</b> where Automatic does not choose the shader, or where the GPU is the limit: MeshBatch.</li>
+  <li><b>uGUI:</b> Shader, or MeshBatch when you cannot set the Canvas channels.</li>
 </ul>
-<p>Painter2D is the full-quality renderer and the best choice for static art, but it costs a draw call and a CPU pass per element, so it suits a few icons rather than hundreds.</p>
-<h2>MeshBatch anti-aliasing</h2>
-<p>MeshBatch smooths edges with a one-pixel fringe (about twice the vertices), on by default (<code>anti-alias</code> / <code>antiAlias</code>). For very large numbers of tiny icons turn it off.</p>
-          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Vectoria Image (Renderer)</a><a class="next" href="optimization.html"><small>Next</small>How Drawing Is Optimized</a></div>
+<h2>CPU or GPU: which budget do you have?</h2>
+<p>The resolvers spend different budgets, so none replaces the others. Painter2D and MeshBatch cost CPU. The Shader costs GPU.</p>
+<p>Painter2D is not suitable for rendering many icons. It gives the highest quality, but the performance cost is very large: 50 animated icons can drop to about 15 fps. Use it for a few icons, and for large counts choose between the other two.</p>
+<ul>
+  <li><b>GPU has headroom and the CPU is busy:</b> Shader.</li>
+  <li><b>The GPU is the bottleneck</b> (mobile, fill-rate-bound or heavy scenes), <b>or the artwork is not shader-drawable:</b> MeshBatch. It scales much further than Painter2D (41 fps at 5,000 animated icons in the benchmark below) and costs very little GPU.</li>
+</ul>
+<p>Automatic always prefers the Shader when it can draw the artwork. It does not look at CPU or GPU load.</p>
+<h2>Performance Benchmark</h2>
+<p>Measured in the Editor at 1920x1080 on one desktop machine, with a 4-shape icon and 3 records animated every frame. The Shader is ahead here. On a phone GPU the result can be the opposite, so measure on your target device.</p>
+<table>
+  <tr><th>Animated icons</th><th>1,000</th><th>5,000</th><th>10,000</th></tr>
+  <tr><td>Shader</td><td>112 fps</td><td>58 fps</td><td>36 fps</td></tr>
+  <tr><td>MeshBatch</td><td>102 fps</td><td>41 fps</td><td>23 fps</td></tr>
+  <tr><td>MeshBatch (Anti-alias)</td><td>78 fps</td><td>24 fps</td><td>8 fps</td></tr>
+  <tr><td>Painter2D</td><td colspan="3">About 1.5 ms per icon. 50 icons already run at about 16 fps.</td></tr>
+</table>
+<p>The Shader row comes from a separate run from the MeshBatch rows, so compare them roughly.</p>
+<p><b>MeshBatch anti-aliasing.</b> Painter2D always smooths its edges, and the shader computes coverage per pixel. MeshBatch does it with a one-pixel fringe: a second ring of transparent vertices around every edge. It is an option on each element (<code>anti-alias</code>, or <code>antiAlias</code> in code), off by default, and it costs about twice the vertices. For very large numbers of tiny icons, leave it off.</p>
+<p><b>Complexity matters.</b> MeshBatch and Painter2D are mesh based: they turn the vector into triangles. The more complex the artwork (more shapes, points and curves), the more triangles there are, and the more work it takes to build and draw them for every icon. The Shader does not build triangles. Each icon is one quad, so its cost follows the pixels it covers and its outline segments, not a triangle count. Complex artwork therefore hurts the mesh-based resolvers most.</p>
+<p>For static icons all three resolvers are cheap, and Painter2D redraws only when something changes. Each Painter2D element costs a draw call and a gradient slot, and about 2,000 gradient icons overflow Unity's 4,096-slot table.</p>
+<h2>Examples</h2>
+<ul>
+  <li><b>A HUD with 200 icons:</b> keep the default. The shader draws them all, in a few draw calls.</li>
+  <li><b>A big hero illustration with a drop shadow:</b> in UI Toolkit, Painter2D (Automatic picks it). In uGUI no resolver draws effects, so set that artboard's Asset Type to Textured Sprite in the <a href="importer.html"><u>importer</u></a> and use a normal Image.</li>
+  <li><b>A mobile game with 5,000 animated icons:</b> Automatic would pick the Shader. Try that first, and if the GPU is the limit, switch those elements to MeshBatch by hand. The numbers above are from a desktop, so measure on the device. If you can, animate fewer icons.</li>
+</ul>
+<h2>Which path is drawing?</h2>
+<p>In UI Toolkit, <code>element.usesShader</code>, <code>usesMeshBatchPath</code> and <code>usesSharedBatch</code> tell you. In uGUI, <code>image.effectiveResolver</code> is the resolver in effect and <code>image.isRasterDrawn</code> tells whether a raster tile is drawn.</p>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Vectoria Image (Renderer)</a><a class="next" href="optimization.html"><small>Next</small>How Rendering is Optimized</a></div>
         </article>
       </div>
     </div>

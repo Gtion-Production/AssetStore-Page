@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="cur d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="cur d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><a class=" d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -49,22 +49,51 @@
         </aside>
         <article class="doc-body">
           <h1>Vectoria Image (Renderer)</h1>
-          <p class="lead muted">Draw .vpaint artwork in UI Toolkit or uGUI.</p>
-          <p>Vectoria Image draws <code>.vpaint</code> artwork in your game. There is one component per UI system:</p>
+          <p class="lead muted">Draw .vpaint artwork in UI Toolkit or uGUI, sharp at any size and cheap to run.</p>
+<p>Vectoria Image is the runtime half of Vectoria. It takes a <code>.vpaint</code> document that you drew in the <a href="../painter/index.html"><u>painter</u></a> and draws it in your game. There is one component for each UI system, and both draw the same artwork with the same resolvers.</p>
+<h2>Pick your UI system</h2>
 <table>
   <tr><th>UI system</th><th>Component</th><th>Page</th></tr>
   <tr><td>UI Toolkit</td><td><code>VectoriaImageElement</code></td><td><a href="uitk/index.html"><u>UI Toolkit</u></a></td></tr>
-  <tr><td>uGUI</td><td><code>VectoriaImage</code></td><td><a href="ugui/index.html"><u>uGUI</u></a></td></tr>
+  <tr><td>uGUI (Canvas)</td><td><code>VectoriaImage</code></td><td><a href="ugui/index.html"><u>uGUI</u></a></td></tr>
 </table>
-<p>Both set <b>Source/Document</b>, <b>Artboard</b>, <b>Scale Mode</b> and a <b>Resolver</b>, and are sharp at any size.</p>
+<p>A <b>resolver</b> is the part that decides how the artwork is drawn (with a GPU shader, a batched mesh, or UI Toolkit's own vector painter, called Painter2D). You rarely need to change it, see <a href="choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</p>
+<p>Both let you choose the document, the artboard, how it scales into the box, a tint colour and a resolver. <code>VectoriaImage</code> is a normal uGUI <code>Image</code>, so it masks, raycasts and lays out like one.</p>
+<h2>Quick path</h2>
+<ol>
+  <li>Draw an icon in the <a href="../painter/index.html"><u>painter</u></a> and save it as a <code>.vpaint</code> in <code>Assets</code>.</li>
+  <li>Add a <b>Vectoria Image</b> (uGUI) or a <b>VectoriaImageElement</b> (UI Toolkit) and pick the <code>.vpaint</code> and an artboard. Steps with pictures are on the <a href="ugui/index.html"><u>uGUI</u></a> and <a href="uitk/index.html"><u>UI Toolkit</u></a> pages, and a shorter version is in the <a href="../getting-started/quick-start.html"><u>Quick Start</u></a>.</li>
+  <li>If nothing draws, check the setup for the shader in the table below, or see <a href="troubleshooting.html"><u>Troubleshooting</u></a>.</li>
+</ol>
+<h2>How artwork gets on screen</h2>
+<ol>
+  <li><b>Import.</b> When Unity imports a <code>.vpaint</code>, the importer precompiles the artwork for the shader and bakes small raster tiles, so nothing has to be prepared at runtime. See <a href="importer.html"><u>Importer</u></a>.</li>
+  <li><b>Resolve.</b> A <em>resolver</em> decides how the artwork is drawn: with a GPU shader, a batched mesh, or UI Toolkit's own vector painter. The default picks the shader whenever it can draw everything. See <a href="choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</li>
+  <li><b>Batch.</b> In UI Toolkit, shader icons in the same group (a parent, or a <code>VectorBatchGroup</code> you define) share one mesh and one material, so they draw in one call. In uGUI, shader images on a Canvas share one material and batch together. Either way, hundreds of icons cost a few calls. See <a href="optimization.html"><u>How rendering is optimized</u></a>.</li>
+  <li><b>Rasterize where it pays off.</b> Small icons switch to a tile baked at import (<a href="ugui/raster-lod.html"><u>Raster LOD</u></a>). Large, costly artwork is baked once on the GPU (<a href="runtime-raster.html"><u>Runtime Raster</u></a>). The shader draws while an icon animates.</li>
+</ol>
+<h2>Requirements</h2>
+<table>
+  <tr><th>For</th><th>You need</th></tr>
+  <tr><td>Everything</td><td>Unity 6000.0 or newer, and the scripting define <code>Vector_Painter_Enabled</code> in <code>Project Settings &rsaquo; Player</code>. Without the define nothing compiles, so if the components are missing, check it first.</td></tr>
+  <tr><td>Shader resolver in UI Toolkit</td><td>URP, Unity 6000.3 or newer (custom materials in UI Toolkit), and the extra vertex channels on the PanelSettings. See <a href="uitk/shader-setup.html"><u>Shader Setup</u></a>.</td></tr>
+  <tr><td>Shader resolver in uGUI</td><td>The Canvas additional shader channels. See <a href="ugui/canvas-setup.html"><u>Canvas Setup</u></a>.</td></tr>
+  <tr><td>MeshBatch and Painter2D resolvers</td><td>Nothing extra.</td></tr>
+</table>
+<h2>Demos</h2>
+<ul>
+  <li><code>Demo/RealisticHud/Scenes</code>: a full HUD in UI Toolkit, in uGUI with vector icons, and in uGUI with raster sprites for comparison.</li>
+  <li><code>Demo/StressTest</code>: animates up to 10,000 icons with any resolver. Pick a resolver, an animation mode and a count, or press <b>Start test</b> to run every ticked resolver up a ladder of counts until it drops below 10 fps.</li>
+</ul>
 <h2>In this section</h2>
 <ul>
-  <li><a href="choosing-a-resolver.html"><u>Choosing a resolver</u></a>: Automatic, Shader, MeshBatch, Painter2D</li>
-  <li><a href="optimization.html"><u>How drawing is optimized</u></a>: the shader path, batching, Raster LOD and Runtime Raster</li>
+  <li><a href="choosing-a-resolver.html"><u>Choosing a resolver</u></a>: Automatic, Shader, MeshBatch and Painter2D compared</li>
+  <li><a href="optimization.html"><u>How rendering is optimized</u></a>: the shader path, batching, Raster LOD and Runtime Raster</li>
   <li><a href="runtime-raster.html"><u>Runtime Raster</u></a>: large artwork baked into a texture when it is worth it</li>
-  <li><a href="importer.html"><u>Importer</u></a>: artboard asset types, UI Vectoria, raster LOD</li>
-  <li><a href="settings.html"><u>Settings</u></a>: project defaults</li>
-  <li><a href="uitk/index.html"><u>UI Toolkit</u></a> and <a href="ugui/index.html"><u>uGUI</u></a></li>
+  <li><a href="importer.html"><u>Importer</u></a>: artboard asset types and import-time baking</li>
+  <li><a href="settings.html"><u>Settings</u></a>: project-wide defaults</li>
+  <li><a href="troubleshooting.html"><u>Troubleshooting</u></a>: when nothing draws, or it draws wrong</li>
+  <li><a href="uitk/index.html"><u>UI Toolkit</u></a> and <a href="ugui/index.html"><u>uGUI</u></a>: the two components</li>
 </ul>
           <div class="pager"><a class="prev" href="../painter/documents-and-svg.html"><small>Previous</small>Documents, Artboards and SVG</a><a class="next" href="choosing-a-resolver.html"><small>Next</small>Choosing a Resolver</a></div>
         </article>

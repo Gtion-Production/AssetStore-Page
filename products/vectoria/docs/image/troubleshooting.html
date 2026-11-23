@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting &ndash; Vectoria Documentation</title>
+<meta name="description" content="When nothing draws, or the artwork draws wrong.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../assets/css/product.css">
+<script src="../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../index.html#home">Home</a>
+      <a href="../../../../index.html#about">About</a>
+      <a class="active" href="../../../../index.html#products">Products</a>
+      <a href="../../../../index.html#news">News</a>
+      <a href="../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../index.html#products">Products</a> / <a href="../../index.html">Vectoria</a> / <a href="../index.html">Documentation</a> / <a href="index.html">Vectoria Image (Renderer)</a> / Troubleshooting</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/modes.html">Creative and Developer Mode</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Rendering is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><a class="cur d1" href="troubleshooting.html">Troubleshooting</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Troubleshooting</h1>
+          <p class="lead muted">When nothing draws, or the artwork draws wrong.</p>
+<h2>Nothing draws</h2>
+<table>
+  <tr><th>Where</th><th>Cause</th><th>Fix</th></tr>
+  <tr><td>uGUI, Shader resolver</td><td>The Canvas is missing the additional shader channels.</td><td>Press <b>Fix Canvas Channels</b> in the inspector. See <a href="ugui/canvas-setup.html"><u>Canvas Setup</u></a>.</td></tr>
+  <tr><td>UI Toolkit, Shader resolver</td><td>No URP, Unity older than 6000.3, or the PanelSettings extra vertex channels are not set. A warning is logged.</td><td>See <a href="uitk/shader-setup.html"><u>Shader Setup</u></a>. Or set the resolver to Automatic, which falls back by itself.</td></tr>
+  <tr><td>Anywhere</td><td>The scripting define <code>Vector_Painter_Enabled</code> is missing, so nothing compiles.</td><td>Add it in <code>Project Settings &rsaquo; Player</code>.</td></tr>
+  <tr><td>Anywhere</td><td>No document or artboard is set, or the element has no size.</td><td>Set <b>Source</b> or <b>VPaint Document</b>, an <b>Artboard</b>, and a width and height.</td></tr>
+</table>
+<p>A quick test for the uGUI case: switch the resolver to MeshBatch. It needs no Canvas channels, so if the image appears, a channel is the problem.</p>
+<h2>Part of the artwork is missing</h2>
+<table>
+  <tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+  <tr><td>Text, a shadow, a glow, a pattern or an image is not drawn</td><td>The Shader and MeshBatch resolvers do not draw them.</td><td>In UI Toolkit use Painter2D (Automatic chooses it by itself). Or draw without them, using <a href="../painter/modes.html"><u>Developer mode</u></a> in the painter so you cannot add them.</td></tr>
+  <tr><td>Dashes have flat ends, or a radial gradient looks centred</td><td>The shader draws dashes with flat ends and ignores the radial focus offset.</td><td>Use Painter2D for that artwork.</td></tr>
+</table>
+<h2>It draws, but looks or behaves differently</h2>
+<table>
+  <tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+  <tr><td>Edges get slightly softer or sharper at times (UI Toolkit)</td><td>Automatic switched between Painter2D and MeshBatch.</td><td>Set the resolver by hand.</td></tr>
+  <tr><td>An animated icon is not drawn from its raster tile</td><td>A tile is a still image, so the shader draws while an icon animates.</td><td>Nothing to fix. It is how it works.</td></tr>
+  <tr><td>A small icon looks slightly different from a large one</td><td>At or below the Raster size a tile is used, above it the shader draws.</td><td>Lower the Raster size, or turn Raster LOD off for that file in the <a href="importer.html"><u>importer</u></a>.</td></tr>
+  <tr><td>An icon does not use its sprite from the Sprite Atlas (uGUI)</td><td>The atlas rotated the sprite, so it falls back to the vector shader.</td><td>Turn <b>Allow Rotation</b> off in the Sprite Atlas.</td></tr>
+  <tr><td>Element opacity or transform does not affect a shader icon (UI Toolkit)</td><td>Shader icons share one mesh, which does not see each element's own opacity or transform.</td><td>Put <a href="uitk/batch-group.html"><u>VectorBatchGroup</u></a> on the thing that moves or fades, or use Painter2D.</td></tr>
+</table>
+<h2>Too many draw calls</h2>
+<table>
+  <tr><th>Where</th><th>Cause</th><th>Fix</th></tr>
+  <tr><td>UI Toolkit</td><td>Icons under different parents each get their own mesh.</td><td>Wrap the subtree in a <a href="uitk/batch-group.html"><u>VectorBatchGroup</u></a>.</td></tr>
+  <tr><td>uGUI</td><td>A different material, such as a Mask or a Text, sits between the images in hierarchy order and breaks the batch.</td><td>Reorder the hierarchy so vector images sit together.</td></tr>
+  <tr><td>UI Toolkit with Painter2D</td><td>One draw call and a gradient slot per element.</td><td>Use the Shader or MeshBatch for lists and grids.</td></tr>
+</table>
+<h2>Which path is drawing?</h2>
+<p>In UI Toolkit, read <code>usesShader</code>, <code>usesMeshBatchPath</code> and <code>usesSharedBatch</code> on the element. In uGUI, read <code>effectiveResolver</code> and <code>isRasterDrawn</code> on the image. The <a href="choosing-a-resolver.html"><u>Resolver comparison</u></a> explains how each one behaves.</p>
+          <div class="pager"><a class="prev" href="settings.html"><small>Previous</small>Settings</a><a class="next" href="uitk/index.html"><small>Next</small>UI Toolkit</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>
