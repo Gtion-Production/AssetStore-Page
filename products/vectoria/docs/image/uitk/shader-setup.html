@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shader Setup &ndash; Vectoria Documentation</title>
+<meta name="description" content="Requirements and limits of GPU drawing in UI Toolkit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../../assets/css/product.css">
+<script src="../../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../../index.html#home">Home</a>
+      <a href="../../../../../index.html#about">About</a>
+      <a class="active" href="../../../../../index.html#products">Products</a>
+      <a href="../../../../../index.html#news">News</a>
+      <a href="../../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../../index.html#products">Products</a> / <a href="../../../index.html">Vectoria</a> / <a href="../../index.html">Documentation</a> / <a href="../index.html">Vectoria Image (Renderer)</a> / <a href="index.html">UI Toolkit</a> / Shader Setup</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="../../painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index" open><summary><a class="anc d1" href="index.html">UI Toolkit</a></summary><a class="cur d2" href="shader-setup.html">Shader Setup</a><a class=" d2" href="batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../ugui/index.html">uGUI</a></summary><a class=" d2" href="../ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Shader Setup</h1>
+          <p class="lead muted">Requirements and limits of GPU drawing in UI Toolkit.</p>
+          <p>The Shader resolver draws with a GPU shader: nothing is tessellated, each icon is one quad, and the fragment shader works out the shape per pixel. Edges are crisp at any size.</p>
+<h2>Required setup</h2>
+<ol>
+  <li>URP (custom materials in UI Toolkit).</li>
+  <li>In the <b>PanelSettings</b> asset, <code>Buffer Management &rsaquo; Extra Vertex Channels</code>: tick <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>. A warning is logged when they are missing. Each channel adds 16 bytes per vertex for the panel.</li>
+</ol>
+<p>If the setup is missing, <code>resolver="Shader"</code> draws nothing and logs a warning. <b>Automatic</b> checks it and falls back instead.</p>
+<h2>Draw calls</h2>
+<p>All shader-drawn elements with the same parent share one mesh and one draw call, whatever their artwork. Ten different <code>.vpaint</code> files in one grid are still one call. One mesh holds about 16,000 icons. To share across a deeper hierarchy, use <a href="batch-group.html"><u>VectorBatchGroup</u></a>.</p>
+<h2>What it draws</h2>
+<p>Solid fills and strokes, linear and radial gradients (up to 8 stops), freeform gradients, gradient strokes, miter/bevel/round joins, round and butt caps, dashes, compound paths (even-odd), clip groups, scale modes and <code>uv</code> cropping.</p>
+<h2>Limits</h2>
+<ul>
+  <li>Not drawn: live effects, patterns, text, images, symbols, brushes, blend modes.</li>
+  <li>Dashes have flat ends. Radial gradients ignore the focus offset.</li>
+  <li>The element's own opacity, visibility and transform do not apply to the shared mesh.</li>
+</ul>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>UI Toolkit</a><a class="next" href="batch-group.html"><small>Next</small>VectorBatchGroup</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

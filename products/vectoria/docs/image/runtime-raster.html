@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runtime Raster &ndash; Vectoria Documentation</title>
+<meta name="description" content="Large, complex artwork baked into a texture the first time it is drawn.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../assets/css/product.css">
+<script src="../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../index.html#home">Home</a>
+      <a href="../../../../index.html#about">About</a>
+      <a class="active" href="../../../../index.html#products">Products</a>
+      <a href="../../../../index.html#news">News</a>
+      <a href="../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../index.html#products">Products</a> / <a href="../../index.html">Vectoria</a> / <a href="../index.html">Documentation</a> / <a href="index.html">Vectoria Image (Renderer)</a> / Runtime Raster</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="../painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="optimization.html">How Drawing Is Optimized</a><a class="cur d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Runtime Raster</h1>
+          <p class="lead muted">Large, complex artwork baked into a texture the first time it is drawn.</p>
+          <p>A large icon with many outlines or gradients is costly for the shader, because the cost is paid for every pixel, every frame. Runtime Raster renders such an icon once into the shared <b>raster atlas</b> and draws it from that texture from then on.</p>
+<figure>
+  <img src="img/runtime-raster-flow.svg" alt="Three steps: the shader draws the icon in frame one, the icon is baked into the atlas in frame two, and later frames read the atlas texture">
+  <figcaption>The first frames use the shader, so nothing pops. After the bake an icon costs one texture read per pixel.</figcaption>
+</figure>
+<h2>Turn it on</h2>
+<p>Open <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code> and find <b>Large artwork</b> under Raster. It is a feature of the Shader resolver and works in uGUI and UI Toolkit.</p>
+<table>
+  <tr><th>Setting</th><th>Meaning</th></tr>
+  <tr><td>Bake at runtime</td><td><b>Disabled</b>: never. <b>Complex Image Only</b> (default): only artwork whose shader work reaches the minimum below. <b>Always Enabled</b>: all static artwork in the size range.</td></tr>
+  <tr><td>Minimum shader work (units)</td><td>Complex Image Only only. Default 15.</td></tr>
+  <tr><td>Smallest size (px)</td><td>Artwork drawn below this size keeps using the shader or its Raster LOD tile. Default 192.</td></tr>
+  <tr><td>Largest, desktop / mobile (px)</td><td>Largest tile. Default 2048 on desktop and 1024 on mobile. Larger artwork keeps using the shader.</td></tr>
+</table>
+<h2>Complex Image Only</h2>
+<p>A tile costs memory, so it only pays off for artwork the shader finds expensive. Vectoria measures that in <b>shader work units</b>: the outline segments the shader checks per pixel (weighted by the area each shape covers) plus 8 for each gradient. Units do not depend on the GPU or on the size the icon is drawn at, so the same minimum means the same everywhere.</p>
+<figure>
+  <img src="img/work-units.svg" alt="A scale of shader work: cheap below 15 units, moderate to 30, heavy to 100, very heavy above, with the bake minimum marked at 15">
+  <figcaption>Complex Image Only bakes artwork from the minimum upward.</figcaption>
+</figure>
+<ul>
+  <li>The Vectoria painter's <b>Stats</b> window (<code>Window &rsaquo; Stats</code>) shows the shader work and level of the active artboard, and whether the runtime bake would take it.</li>
+  <li>Units are measured on the document, not on your device. On an RTX 3060 laptop one unit costs about 0.03 ms per megapixel. The estimate was fitted on 79 files and can be off for some artwork, so treat the minimum as a tuning knob: raise it on fast hardware, or on a mobile platform that is short on memory.</li>
+</ul>
+<h2>What never gets a tile</h2>
+<ul>
+  <li>Artwork that is animating. It draws with the shader and asks for a tile again when it stops.</li>
+  <li>Artwork that is mostly one flat colour.</li>
+  <li>Sprite output (<a href="ugui/raster-lod.html"><u>Raster LOD</u></a> sprite mode), which uGUI draws as normal sprites.</li>
+</ul>
+<h2>The atlas and its memory</h2>
+<figure>
+  <img src="img/atlas.svg" alt="An atlas page packed with tiles of different sizes, one tile enlarged to show its gutter, and three mip levels">
+  <figcaption>Tiles are packed in one shared texture array. Each tile has a 4 px gutter and three mip levels.</figcaption>
+</figure>
+<ul>
+  <li>Tiles step by about 1.4x: 256, 384, 512, 768, 1024, 1536 and 2040 px. An icon gets the smallest tile that is at least as large as it, so a tile is never shown at much less than its baked size, and the mip levels keep it clean when it is.</li>
+  <li>A 1024 px page is about 5.6 MB and a 2048 px page about 22 MB, mips included. The atlas keeps at most 4 pages on desktop (about 89 MB at 2048 px pages) and 2 on mobile. When it is full, further icons keep using the shader.</li>
+  <li>The page size is chosen when the atlas starts empty. A change to the largest size applies once the atlas next empties (idle for 30 seconds, or on entering Play mode).</li>
+  <li>A tile nobody uses is freed after 5 seconds, so a menu that reopens finds its tiles again.</li>
+</ul>
+<h2>What a bake costs</h2>
+<ul>
+  <li>When baking is on, a small warm-up runs after the first scene loads (shaders, materials and the GPU's pipeline state). It makes the first real bake cost about 1.4 ms of CPU instead of about 5 ms in the Editor.</li>
+  <li>Each later bake costs about 0.2 ms of CPU. The GPU time is about one shader draw of that artwork at that size, paid once per tile.</li>
+  <li>At most one bake runs per pump, so many icons appearing together are baked over a few frames.</li>
+  <li>The tile matches what the shader draws to within 1/255. In a test, four 1400 px copies of a heavy icon went from 9.2 ms to 1.9 ms per frame.</li>
+</ul>
+<h2>Runtime Raster or Raster LOD?</h2>
+<p>They work together. <a href="ugui/raster-lod.html"><u>Raster LOD</u></a> covers small icons with tiles baked at import, so they are ready on the first frame and need no GPU bake; it is also the only path for Sprite Atlas output. Runtime Raster covers the large, costly ones. Between the two sizes the shader draws, where it is cheap.</p>
+          <div class="pager"><a class="prev" href="optimization.html"><small>Previous</small>How Drawing Is Optimized</a><a class="next" href="importer.html"><small>Next</small>Importer</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interface &ndash; Vectoria Documentation</title>
+<meta name="description" content="The painter window, its panels and dialogs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../assets/css/product.css">
+<script src="../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../index.html#home">Home</a>
+      <a href="../../../../index.html#about">About</a>
+      <a class="active" href="../../../../index.html#products">Products</a>
+      <a href="../../../../index.html#news">News</a>
+      <a href="../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../index.html#products">Products</a> / <a href="../../index.html">Vectoria</a> / <a href="../index.html">Documentation</a> / <a href="index.html">Vectoria Painter (Editor)</a> / Interface</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class="cur d1" href="interface.html">Interface</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Interface</h1>
+          <p class="lead muted">The painter window, its panels and dialogs.</p>
+          <p>The window is titled <b>Vectoria Painter</b>. It has a toolbar of tools, a canvas, and docked panels.</p>
+<h2>Panels</h2>
+<table>
+  <tr><th>Panel</th><th>Use</th></tr>
+  <tr><td>Appearance</td><td>Fills, strokes, opacity and effects of the selection.</td></tr>
+  <tr><td>Pathfinder</td><td>Boolean operations on shapes (unite, subtract, intersect, and so on).</td></tr>
+  <tr><td>Stats</td><td>Complexity of the document (shape and segment counts).</td></tr>
+</table>
+<h2>Windows and dialogs</h2>
+<ul>
+  <li><b>New Document</b>: set the size and background of a new <code>.vpaint</code>.</li>
+  <li><b>Export</b>: save SVG and image output.</li>
+  <li><b>Image Trace</b>: turn a bitmap into vector shapes.</li>
+  <li><b>Preferences</b> and <b>Themes</b>: editor look and behavior.</li>
+  <li><b>Font Picker</b> with a Google Fonts installer for type.</li>
+</ul>
+<h2>Project settings</h2>
+<p>Runtime defaults (default resolvers, default raster size) live in <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code>. See <a href="../image/settings.html"><u>Settings</u></a>.</p>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Vectoria Painter (Editor)</a><a class="next" href="drawing-tools.html"><small>Next</small>Drawing Tools</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

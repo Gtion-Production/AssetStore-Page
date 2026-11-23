@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Drawing Is Optimized &ndash; Vectoria Documentation</title>
+<meta name="description" content="Why Vectoria stays fast with many icons, and when a bitmap is cheaper.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../assets/css/product.css">
+<script src="../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../index.html#home">Home</a>
+      <a href="../../../../index.html#about">About</a>
+      <a class="active" href="../../../../index.html#products">Products</a>
+      <a href="../../../../index.html#news">News</a>
+      <a href="../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../index.html#products">Products</a> / <a href="../../index.html">Vectoria</a> / <a href="../index.html">Documentation</a> / <a href="index.html">Vectoria Image (Renderer)</a> / How Drawing Is Optimized</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../painter/interface.html">Interface</a><a class=" d1" href="../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="../painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="choosing-a-resolver.html">Choosing a Resolver</a><a class="cur d1" href="optimization.html">How Drawing Is Optimized</a><a class=" d1" href="runtime-raster.html">Runtime Raster</a><a class=" d1" href="importer.html">Importer</a><a class=" d1" href="settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="ugui/index.html">uGUI</a></summary><a class=" d2" href="ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>How Drawing Is Optimized</h1>
+          <p class="lead muted">Why Vectoria stays fast with hundreds of icons, and when a bitmap is cheaper.</p>
+          <p>Vector art is expensive if it is turned into triangles for every icon, every frame. Vectoria avoids that in three steps: the shader draws the outlines directly, many icons share one draw call, and artwork that is costly or small can be drawn from a bitmap tile instead.</p>
+<h2>The shader draws the outlines</h2>
+<p>With the <b>Shader</b> resolver nothing is tessellated. Each icon is one quad of four vertices. For every pixel the fragment shader walks the artwork's outline segments and works out the distance to the edge and whether the pixel is inside. Edges stay crisp at any size, and animating an icon only sends a few numbers to the GPU.</p>
+<figure>
+  <img src="img/draw-path.svg" alt="A star icon cut into many triangles on the left, and the same icon on a single quad with four corner vertices on the right">
+  <figcaption>A mesh path turns every outline into triangles on the CPU. The shader path keeps one quad per icon.</figcaption>
+</figure>
+<h2>One draw call for many icons</h2>
+<p>All shader icons with the same parent share one mesh and one draw call, whatever their artwork. Ten different <code>.vpaint</code> files in one grid are still one call. One mesh holds about 16,000 icons.</p>
+<figure>
+  <img src="img/batching.svg" alt="A grid of icons, then one shared mesh with one quad per icon, then a single draw call">
+  <figcaption>In a measured UI Toolkit test, 10,000 animated icons needed 3 draw calls.</figcaption>
+</figure>
+<h2>Flat areas skip the shader</h2>
+<p>When an artwork has a large solid area, that area is drawn as a plain coloured quad with no data fetches, and the shader only runs on the band around the outline. Artwork that is mostly one flat colour is not baked into a tile either, because there is nothing left to save.</p>
+<h2>When a bitmap is cheaper</h2>
+<p>The shader cost grows with the number of pixels an icon covers and with how many outline segments and gradients it has. Two features trade a little memory for a bitmap tile that costs one texture read per pixel:</p>
+<figure>
+  <img src="img/size-tiers.svg" alt="A size axis from 16 to 2048 pixels: Raster LOD tiles up to 64 pixels, the shader from 64 to 192, the shader from 64 up, and Runtime Raster tiles on top of it from 192 only where the shader is costly">
+  <figcaption>Which path draws a static icon, by its size on screen. Above the smallest size, the default Complex Image Only mode bakes a tile only for artwork whose shader work is high; otherwise the shader keeps drawing, up to the largest size. The sizes shown are the defaults.</figcaption>
+</figure>
+<table>
+  <tr><th></th><th><a href="ugui/raster-lod.html"><u>Raster LOD</u></a></th><th><a href="runtime-raster.html"><u>Runtime Raster</u></a></th></tr>
+  <tr><td>For</td><td>Small icons</td><td>Large, complex artwork</td></tr>
+  <tr><td>Baked</td><td>At import, stored in the <code>.vpaint</code> asset</td><td>At runtime, on the GPU, when the icon first needs it</td></tr>
+  <tr><td>Sizes</td><td>At or below the Raster size (default 64 px)</td><td>From 192 px up to 1024 px (mobile) or 2048 px (desktop)</td></tr>
+  <tr><td>Which artwork</td><td>Every UI Vectoria artboard of a file with Raster LOD on</td><td>Chosen by shader work (Complex Image Only), or all (Always Enabled)</td></tr>
+  <tr><td>Ready</td><td>On the first frame, no GPU bake</td><td>A frame or two after the icon appears</td></tr>
+  <tr><td>Setting</td><td>Raster size in <a href="settings.html"><u>Settings</u></a> or the <a href="importer.html"><u>importer</u></a></td><td>Bake at runtime in <a href="settings.html"><u>Settings</u></a>, Complex Image Only by default</td></tr>
+</table>
+<p>Both draw from the same shared texture atlas, so tile icons batch into one draw call like the shader icons do.</p>
+<div class="note">The shader always draws while an icon animates (a tile is a still image) and until a tile is ready, so nothing pops or flickers when a tile arrives.</div>
+<h2>Where to go next</h2>
+<ul>
+  <li><a href="ugui/raster-lod.html"><u>Raster LOD</u></a>: small tiles baked at import</li>
+  <li><a href="runtime-raster.html"><u>Runtime Raster</u></a>: large artwork baked when it is worth it</li>
+  <li><a href="choosing-a-resolver.html"><u>Choosing a resolver</u></a>: Shader, MeshBatch and Painter2D compared</li>
+</ul>
+          <div class="pager"><a class="prev" href="choosing-a-resolver.html"><small>Previous</small>Choosing a Resolver</a><a class="next" href="runtime-raster.html"><small>Next</small>Runtime Raster</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

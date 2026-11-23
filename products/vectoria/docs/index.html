@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vectoria Documentation &ndash; Vectoria Documentation</title>
+<meta name="description" content="Vector art editor and runtime renderer for Unity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+<script src="../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Vectoria</a> / <a href="index.html">Documentation</a></div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class="cur d0" href="index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="getting-started/index.html">Getting Started</a></summary><a class=" d1" href="getting-started/installation.html">Installation</a><a class=" d1" href="getting-started/quick-start.html">Quick Start</a><a class=" d1" href="getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="painter/interface.html">Interface</a><a class=" d1" href="painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="image/importer.html">Importer</a><a class=" d1" href="image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="image/ugui/index.html">uGUI</a></summary><a class=" d2" href="image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="image/ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Vectoria Documentation</h1>
+          <p class="lead muted">Draw vector art in Unity, then show it sharp at any size, in UI Toolkit or uGUI.</p>
+          <p>Vectoria &ndash; Illustrator &amp; Renderer by Gtion &ndash; is a vector art editor and runtime renderer. You draw icons, HUD graphics and illustrations in the <b>Vectoria Painter</b> window, save them as <code>.vpaint</code> documents, and display them with <b>Vectoria Image</b>. The artwork stays vector data, so it stays crisp at every resolution, aspect ratio and scale.</p>
+
+<h2 style="margin-top:32px">What you get</h2>
+<ul>
+  <li><b>An editor inside Unity</b>: shapes, paths, layers and artboards, with SVG import and export.</li>
+  <li><b>Two UI back ends</b>: <code>VectoriaImageElement</code> for UI Toolkit and <code>VectoriaImage</code> for uGUI.</li>
+  <li><b>Several render paths</b>: Automatic, Shader, MeshBatch, Painter2D and raster, so you can trade quality against cost per screen.</li>
+  <li><b>An AI skill</b> that lets a coding agent draw and inspect artwork for you.</li>
+  <li><b>Demo scenes</b>: RealisticHud, ResolverComparison and StressTest.</li>
+</ul>
+
+<h2 style="margin-top:32px">Where do you want to start?</h2>
+<div class="features">
+  <a class="feature" href="getting-started/index.html"><h3>I am new to Vectoria</h3><p>Install the package, enable the module, draw your first icon and show it on screen.</p></a>
+  <a class="feature" href="painter/index.html"><h3>I want to draw artwork</h3><p>Vectoria Painter (Editor): tools, artboards, layers and SVG.</p></a>
+  <a class="feature" href="image/index.html"><h3>I want to show it in my game</h3><p>Vectoria Image (Renderer): draw <code>.vpaint</code> artwork in UI Toolkit or uGUI.</p></a>
+</div>
+
+<h2 style="margin-top:32px">Quick answers</h2>
+<table>
+  <tr><th>If you want to&hellip;</th><th>Read</th></tr>
+  <tr><td>Install and draw your first icon</td><td><a href="getting-started/installation.html"><u>Installation</u></a>, then <a href="getting-started/quick-start.html"><u>Quick Start</u></a></td></tr>
+  <tr><td>Understand <code>.vpaint</code>, artboards and resolvers</td><td><a href="getting-started/concepts.html"><u>Core Concepts</u></a></td></tr>
+  <tr><td>Import an existing SVG</td><td><a href="painter/documents-and-svg.html"><u>Documents, Artboards and SVG</u></a></td></tr>
+  <tr><td>Pick the right render path</td><td><a href="image/choosing-a-resolver.html"><u>Choosing a Resolver</u></a></td></tr>
+  <tr><td>Use it in UI Toolkit</td><td><a href="image/uitk/index.html"><u>UI Toolkit</u></a> and <a href="image/uitk/shader-setup.html"><u>Shader Setup</u></a></td></tr>
+  <tr><td>Use it in uGUI</td><td><a href="image/ugui/index.html"><u>uGUI</u></a> and <a href="image/ugui/canvas-setup.html"><u>Canvas Setup</u></a></td></tr>
+  <tr><td>Let an AI agent draw for you</td><td><a href="painter/ai-skill.html"><u>AI Skill</u></a></td></tr>
+</table>
+
+<h2 style="margin-top:32px">Full map</h2>
+<ul>
+  <li><a href="getting-started/index.html"><u>Getting Started</u></a>: overview, installation, quick start, core concepts</li>
+  <li><a href="painter/index.html"><u>Vectoria Painter (Editor)</u></a>: interface, drawing tools, documents and SVG, AI skill</li>
+  <li><a href="image/index.html"><u>Vectoria Image (Renderer)</u></a>: choosing a resolver, importer, settings
+    <ul>
+      <li><a href="image/uitk/index.html"><u>UI Toolkit</u></a>: <code>VectoriaImageElement</code>, shader setup, <code>VectorBatchGroup</code></li>
+      <li><a href="image/ugui/index.html"><u>uGUI</u></a>: <code>VectoriaImage</code>, Canvas setup, raster LOD</li>
+    </ul>
+  </li>
+</ul>
+          <div class="pager"><span></span><a class="next" href="getting-started/index.html"><small>Next</small>Getting Started</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canvas Setup &ndash; Vectoria Documentation</title>
+<meta name="description" content="Additional shader channels for the Shader resolver.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../../assets/css/product.css">
+<script src="../../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../../index.html#home">Home</a>
+      <a href="../../../../../index.html#about">About</a>
+      <a class="active" href="../../../../../index.html#products">Products</a>
+      <a href="../../../../../index.html#news">News</a>
+      <a href="../../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../../index.html#products">Products</a> / <a href="../../../index.html">Vectoria</a> / <a href="../../index.html">Documentation</a> / <a href="../index.html">Vectoria Image (Renderer)</a> / <a href="index.html">uGUI</a> / Canvas Setup</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="../../painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index" open><summary><a class="anc d1" href="index.html">uGUI</a></summary><a class="cur d2" href="canvas-setup.html">Canvas Setup</a><a class=" d2" href="raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>Canvas Setup</h1>
+          <p class="lead muted">Additional shader channels for the Shader resolver.</p>
+          <p>With the <b>Shader</b> resolver the Canvas must carry the additional shader channels <b>TexCoord1</b>, <b>TexCoord2</b> and <b>TexCoord3</b>.</p>
+<ol>
+  <li>Select the Canvas, open <code>Additional Shader Channels</code> and tick TexCoord1, TexCoord2, TexCoord3.</li>
+  <li>Or select a <code>VectoriaImage</code>: the inspector shows a warning with a <b>Fix</b> button. In code call <code>image.FixCanvasChannels()</code>; <code>image.CanvasChannelsOk</code> tells whether they are set.</li>
+</ol>
+<p>If the channels are missing a warning is logged. The <b>MeshBatch</b> resolver needs none of this.</p>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>uGUI</a><a class="next" href="raster-lod.html"><small>Next</small>Raster LOD</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

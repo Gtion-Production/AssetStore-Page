@@ -53,6 +53,7 @@ p { margin-bottom: 16px; max-width: 70ch; }
 
 /* Product hero */
 .product-hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
+.product-hero h1 { font-size: 28px; }
 .product-hero .thumb-lg { border: 1px solid #e5e5e5; background: #000; }
 .product-hero .thumb-lg img { display: block; width: 100%; height: auto; }
 .badge { display: inline-block; font: 700 11px var(--font-heading); text-transform: uppercase; background: var(--accent); padding: 2px 10px; margin-bottom: 12px; }
@@ -99,3 +100,42 @@ footer a:hover { color: #fff; }
   .toc { position: static; }
   .doc-body { padding: 24px 20px; }
 }
+
+/* Nested documentation */
+.container.wide { max-width: 1160px; }
+.docs { grid-template-columns: 260px 1fr; }
+.toc.tree a { padding: 5px 0 5px 12px; line-height: 1.4; }
+.toc.tree a.d1 { padding-left: 28px; font-size: 13px; }
+.toc.tree a.d2 { padding-left: 44px; font-size: 13px; }
+.toc.tree a.anc { color: #000; font-weight: 700; }
+.toc.tree a.cur { color: #000; font-weight: 700; border-color: var(--accent); background: #eef8ff; }
+.doc-body h1 { margin-bottom: 8px; }
+.doc-body .lead { margin-bottom: 24px; font-size: 16px; }
+.doc-body a u { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+a.feature { display: block; transition: border-color .2s; }
+a.feature:hover { border-top-color: #000; }
+.pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 48px; padding-top: 24px; border-top: 1px solid #e5e5e5; }
+.pager a { border: 1px solid #e5e5e5; padding: 12px 16px; min-width: 200px; font: 700 14px var(--font-heading); }
+.pager a:hover { border-color: var(--accent); }
+.pager a small { display: block; font: 400 11px var(--font-body); text-transform: uppercase; color: var(--text-muted); }
+.pager .next { text-align: right; margin-left: auto; }
+.doc-body .features { margin-top: 16px; }
+.doc-body .features h3 { margin-top: 0; }
+@media (max-width: 768px) { .docs { grid-template-columns: 1fr; } .pager a { min-width: 0; flex: 1; } }
+
+/* Documentation figures (diagrams) */
+.doc-body figure { margin: 20px 0 28px; }
+.doc-body figure img { display: block; width: 100%; max-width: 880px; height: auto; border: 1px solid #e5e5e5; cursor: zoom-in; }
+.doc-body figcaption { margin-top: 8px; max-width: 70ch; font-size: 13px; color: var(--text-muted); }
+
+/* Stable layout between docs pages */
+html { scrollbar-gutter: stable; overflow-y: scroll; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Foldable sidebar: same rows as the flat tree, with a fold arrow at the right */
+.toc.tree details.grp > summary { list-style: none; display: flex; align-items: stretch; cursor: pointer; position: relative; }
+.toc.tree details.grp > summary::-webkit-details-marker { display: none; }
+.toc.tree details.grp > summary a { flex: 1; padding-right: 28px; }
+.toc.tree details.grp > summary::after { content: ""; position: absolute; right: 8px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 2px solid #848383; border-bottom: 2px solid #848383; transform: rotate(-45deg); }
+.toc.tree details.grp[open] > summary::after { transform: rotate(45deg); margin-top: -8px; }
+.toc.tree details.grp > summary:hover::after { border-color: #000; }

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI Toolkit &ndash; Vectoria Documentation</title>
+<meta name="description" content="VectoriaImageElement in UI Builder and code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../../../assets/css/product.css">
+<script src="../../../../../assets/js/docs-nav.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../../../index.html" aria-label="GTION Game Studio"><img src="../../../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../../../index.html#home">Home</a>
+      <a href="../../../../../index.html#about">About</a>
+      <a class="active" href="../../../../../index.html#products">Products</a>
+      <a href="../../../../../index.html#news">News</a>
+      <a href="../../../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../../../index.html#products">Products</a> / <a href="../../../index.html">Vectoria</a> / <a href="../../index.html">Documentation</a> / <a href="../index.html">Vectoria Image (Renderer)</a> / UI Toolkit</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="../../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../../getting-started/installation.html">Installation</a><a class=" d1" href="../../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index"><summary><a class=" d0" href="../../painter/index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="../../painter/interface.html">Interface</a><a class=" d1" href="../../painter/drawing-tools.html">Drawing Tools</a><a class=" d1" href="../../painter/documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="../../painter/ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index" open><summary><a class="anc d0" href="../index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../runtime-raster.html">Runtime Raster</a><a class=" d1" href="../importer.html">Importer</a><a class=" d1" href="../settings.html">Settings</a><details class="grp" data-k="image/uitk/index" open><summary><a class="cur d1" href="index.html">UI Toolkit</a></summary><a class=" d2" href="shader-setup.html">Shader Setup</a><a class=" d2" href="batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../ugui/index.html">uGUI</a></summary><a class=" d2" href="../ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../ugui/raster-lod.html">Raster LOD</a></details></details>
+                  <script>
+(function () {
+  var K = "vectoria-docs-folds", saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(K) || "{}"); } catch (e) {}
+  var ds = document.querySelectorAll(".toc.tree details.grp");
+  ds.forEach(function (d) {
+    var k = d.getAttribute("data-k"), forced = d.querySelector("a.cur, a.anc");
+    if (!forced && k in saved) d.open = saved[k];
+    d.addEventListener("toggle", function () {
+      saved[k] = d.open;
+      try { sessionStorage.setItem(K, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+})();
+</script>
+        </aside>
+        <article class="doc-body">
+          <h1>UI Toolkit</h1>
+          <p class="lead muted">VectoriaImageElement in UI Builder and code.</p>
+          <p><code>VectoriaImageElement</code> (namespace <code>Vectoria</code>) is a <code>VisualElement</code> you place in UI Builder or UXML.</p>
+<h2>Attributes</h2>
+<table>
+  <tr><th>UXML</th><th>Meaning</th></tr>
+  <tr><td><code>source</code></td><td>The <code>.vpaint</code> document.</td></tr>
+  <tr><td><code>artboard-id</code></td><td>Which artboard to show.</td></tr>
+  <tr><td><code>artwork</code></td><td>A <b>UI Vectoria</b> sub-asset; sets document and artboard at once.</td></tr>
+  <tr><td><code>scale-mode</code></td><td>ScaleToFit, ScaleAndCrop or StretchToFill.</td></tr>
+  <tr><td><code>tint-color</code></td><td>Multiplies the artwork color.</td></tr>
+  <tr><td><code>uv</code></td><td>Show only a window of the artboard (cropped).</td></tr>
+  <tr><td><code>resolver</code></td><td>Automatic, Shader, Painter2D or MeshBatch. See <a href="../choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</td></tr>
+  <tr><td><code>anti-alias</code></td><td>MeshBatch fringe.</td></tr>
+</table>
+<pre><code>&lt;Vectoria.VectoriaImageElement source="project://database/Assets/Icons/Heart.vpaint"
+    artboard-id="1" scale-mode="ScaleToFit" resolver="Automatic" style="width: 64px; height: 64px;" /&gt;</code></pre>
+<h2>Code</h2>
+<pre><code>var icon = root.Q&lt;VectoriaImageElement&gt;("heart");
+icon.resolver = VectorResolver.Shader;
+bool onGpu = icon.usesShader;   // also usesMeshBatchPath, usesSharedBatch</code></pre>
+<h2>In this section</h2>
+<ul>
+  <li><a href="shader-setup.html"><u>Shader setup</u></a>: PanelSettings channels, draw calls, limits</li>
+  <li><a href="batch-group.html"><u>VectorBatchGroup</u></a>: one mesh and one draw call for a whole card or window</li>
+</ul>
+<h2>Demo</h2>
+<p><code>Demo/RealisticHud/Scenes/RealisticHudUITK</code> shows a full HUD; <code>Demo/StressTest</code> draws up to 10,000 icons with any resolver.</p>
+          <div class="pager"><a class="prev" href="../settings.html"><small>Previous</small>Settings</a><a class="next" href="shader-setup.html"><small>Next</small>Shader Setup</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>
