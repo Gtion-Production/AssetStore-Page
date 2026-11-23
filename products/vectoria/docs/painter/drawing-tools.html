@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class="cur d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class=" d1" href="modes.html">Creative and Developer Mode</a><a class="cur d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -49,23 +49,47 @@
         </aside>
         <article class="doc-body">
           <h1>Drawing Tools</h1>
-          <p class="lead muted">Tool groups in the toolbar.</p>
-          <p>Tools are grouped on the toolbar. The groups and the tools they hold:</p>
+          <p class="lead muted">Tools in the toolbar and how to use them.</p>
+<p>Tools are on the left of the window, in groups. Pick one by clicking it or pressing its shortcut. A small triangle in the corner of a button means more tools share that button (for example Rectangle and Rounded Rectangle, or Polygon and Star). Click and hold, or right-click, to choose another, and the button keeps the last one you used. The help bar at the bottom tells you how the active tool works.</p>
+<img src="img/painter-toolbar.png" alt="The toolbar with Select, Shapes, Draw, Modify, Type, Navigation and Color groups" style="cursor:zoom-in;display:block;width:100%;max-width:120px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>The tools you will use most</h2>
 <table>
-  <tr><th>Group</th><th>Examples</th></tr>
-  <tr><td>Select</td><td>Selection, Slice Selection, Live Paint Selection, Perspective Selection</td></tr>
-  <tr><td>Draw</td><td>Smart Pen, Shaper, Blob Brush, Extend Path, Join</td></tr>
-  <tr><td>Shapes</td><td>Parametric Shape, Rectangular Grid, Polar Grid, Flare</td></tr>
-  <tr><td>Type</td><td>Type, Vertical Type, Area Type, Type on a Path, Touch Type</td></tr>
-  <tr><td>Modify</td><td>Reshape, Corner, Contour, Line Cut, Rectangle Cut, Puppet Warp, Slide Anchor Along Path, Anchor Eraser Brush, Objects on Path, Shared Edge Merge</td></tr>
-  <tr><td>Symbols</td><td>Symbol Sprayer, Shifter, Scruncher, Sizer, Spinner, Stainer, Screener, Styler</td></tr>
-  <tr><td>Measure</td><td>Measure, Dimension</td></tr>
-  <tr><td>Navigate</td><td>Zoom, Pan, Rotate View, Perspective Grid</td></tr>
+  <tr><th>Group</th><th>Tool</th><th>Shortcut</th><th>Use it to</th></tr>
+  <tr><td rowspan="3">Select</td><td>Selection</td><td><code>V</code></td><td>Select, move and scale whole shapes. Shift+Click adds to the selection and Alt+Drag duplicates.</td></tr>
+  <tr><td>Direct Selection</td><td><code>A</code></td><td>Select and drag single anchor points, segments and handles.</td></tr>
+  <tr><td>Lasso</td><td><code>Q</code></td><td>Drag a loop around the shapes you want.</td></tr>
+  <tr><td rowspan="5">Shapes</td><td>Rectangle / Rounded Rectangle</td><td><code>M</code></td><td>Drag a box. Up and Down arrows change the corner radius, Shift makes a square, Alt draws from the centre.</td></tr>
+  <tr><td>Ellipse</td><td><code>L</code></td><td>Circles and ovals.</td></tr>
+  <tr><td>Polygon</td><td>-</td><td>Drag from the centre. Up and Down arrows change the number of sides.</td></tr>
+  <tr><td>Star</td><td>-</td><td>Drag from the centre. Up and Down arrows change the number of points.</td></tr>
+  <tr><td>Line Segment</td><td><code>\</code></td><td>Straight lines.</td></tr>
+  <tr><td rowspan="5">Draw</td><td>Pen</td><td><code>P</code></td><td>Click for corner points, drag for smooth curves, click the first point to close.</td></tr>
+  <tr><td>Curvature</td><td><code>Shift+~</code></td><td>Click points and the curve follows by itself.</td></tr>
+  <tr><td>Pencil</td><td><code>N</code></td><td>Draw freehand.</td></tr>
+  <tr><td>Paintbrush</td><td><code>B</code></td><td>Draw freehand with a brush.</td></tr>
+  <tr><td>Eraser</td><td><code>Shift+E</code></td><td>Erase filled areas. <code>[</code> and <code>]</code> change the size.</td></tr>
+  <tr><td rowspan="4">Modify</td><td>Shape Builder</td><td><code>Shift+M</code></td><td>Select shapes, then click or drag regions to merge them. Alt deletes regions.</td></tr>
+  <tr><td>Rotate, Reflect, Scale</td><td><code>R</code> <code>O</code> <code>S</code></td><td>Transform the selection around a point.</td></tr>
+  <tr><td>Free Transform</td><td><code>E</code></td><td>Free, perspective and distort transforms.</td></tr>
+  <tr><td>Scissors</td><td><code>C</code></td><td>Click a path to cut it there.</td></tr>
+  <tr><td>Type</td><td>Type</td><td><code>T</code></td><td>Click for point text, drag for text in a box.</td></tr>
+  <tr><td rowspan="3">Navigation</td><td>Zoom</td><td><code>Z</code></td><td>Click to zoom in, Alt+Click to zoom out, drag a box to zoom to it.</td></tr>
+  <tr><td>Hand</td><td><code>H</code></td><td>Pan. Holding Space does the same with any tool.</td></tr>
+  <tr><td>Artboard</td><td><code>Shift+O</code></td><td>Drag on empty canvas to add an artboard.</td></tr>
+  <tr><td rowspan="2">Color</td><td>Gradient</td><td><code>G</code></td><td>Edit a gradient fill on the canvas.</td></tr>
+  <tr><td>Eyedropper</td><td><code>I</code></td><td>Copy the colours of another shape.</td></tr>
 </table>
-<p class="note">Hover a tool in the toolbar for its tooltip and shortcut.</p>
-<h2>Runtime limits to keep in mind</h2>
-<p>Everything you can draw is saved in the document, but not every renderer draws everything. Live effects (shadow, glow, blur), patterns, text, images, symbols, brushes and blend modes are drawn by Painter2D only; the Shader and MeshBatch resolvers skip them. See <a href="../image/choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</p>
-          <div class="pager"><a class="prev" href="interface.html"><small>Previous</small>Interface</a><a class="next" href="documents-and-svg.html"><small>Next</small>Documents, Artboards and SVG</a></div>
+<h2>Drawing a shape</h2>
+<p>Choose a shape tool and drag on the canvas. The new shape is selected, so you can change its colours in the Properties panel or pick a swatch in the Libraries panel.</p>
+<img src="img/painter-draw.png" alt="A star just drawn with the Star tool, selected, with its fill set to yellow" style="cursor:zoom-in;display:block;width:100%;max-width:560px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>All Tools</h2>
+<p>The toolbar shows a short list. Click the <b>...</b> button at the bottom of it to open the <b>All Tools</b> drawer, which lists every tool with its shortcut. It also has tools that are not in the toolbar: Magic Wand, Group Selection, Add and Delete Anchor Point, Smart Pen, Blob Brush, Shaper, Arc, Spiral, grids, Warp, Knife, Mesh, Live Paint, measuring tools and more.</p>
+<img src="img/painter-all-tools.png" alt="The All Tools drawer listing selection, shape and drawing tools with shortcuts" style="cursor:zoom-in;display:block;width:100%;max-width:340px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>Developer mode hides some tools</h2>
+<p>In <b>Developer</b> mode the tools that the Shader resolver cannot draw are hidden: the type tools, the symbol tools, Blend and Mesh. Switch to Creative mode to get them back. In the All Tools drawer, greyed entries are the tools that are not in the toolbar. See <a href="modes.html"><u>Creative and Developer Mode</u></a>.</p>
+<h2>What the game draws</h2>
+<p>Everything you draw is saved in the document, but not every renderer draws everything. Live effects (shadow, glow, blur), patterns, text, images, symbols, brushes and blend modes are only drawn by the Painter2D resolver (UI Toolkit only, slower). The default Shader resolver and the MeshBatch resolver skip them. See <a href="../image/choosing-a-resolver.html"><u>Choosing a resolver</u></a>.</p>
+          <div class="pager"><a class="prev" href="modes.html"><small>Previous</small>Creative and Developer Mode</a><a class="next" href="documents-and-svg.html"><small>Next</small>Documents, Artboards and SVG</a></div>
         </article>
       </div>
     </div>

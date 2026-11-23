@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="cur d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="cur d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class=" d1" href="modes.html">Creative and Developer Mode</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -50,20 +50,36 @@
         <article class="doc-body">
           <h1>Vectoria Painter (Editor)</h1>
           <p class="lead muted">The vector editor for .vpaint documents.</p>
-          <p>Vectoria Painter is the authoring side: a vector editor window inside the Unity Editor that reads and writes <code>.vpaint</code> documents.</p>
+          <p>Vectoria Painter is a vector editor window inside the Unity Editor, similar to Illustrator or Inkscape. You draw icons and illustrations with shapes, pens and layers, and save them as <code>.vpaint</code> documents in your project. Because the artwork stays vector, you do not export a PNG for every size. You draw once, then show it in your UI with the <b>Vectoria Image</b> component (see <a href="../getting-started/quick-start.html"><u>Quick Start</u></a>).</p>
+<h2>The basic flow</h2>
+<ol>
+  <li>Open the painter and create a document (<code>File &rsaquo; New Document</code>).</li>
+  <li>Draw with the tools on the left (see <a href="drawing-tools.html"><u>Drawing Tools</u></a>), and save as a <code>.vpaint</code> inside <code>Assets</code>.</li>
+  <li>Assign the <code>.vpaint</code> to a Vectoria Image in your scene. No export is needed. (Exporting PNG or SVG files is optional, see <a href="documents-and-svg.html#export"><u>Documents</u></a>.)</li>
+</ol>
 <h2>Opening it</h2>
 <ul>
   <li><code>Tools &rsaquo; Vectoria &rsaquo; Open Vectoria Painter</code></li>
-  <li>Double-click a <code>.vpaint</code> file, or right-click it and choose <code>Open in Vectoria</code>.</li>
+  <li>Double-click a <code>.vpaint</code> file, or right-click it and choose <code>Open in Vectoria</code> (this opens the same painter window).</li>
 </ul>
-<h2>In this section</h2>
+<h2>The window</h2>
+<p>Tools are on the left, the canvas is in the middle, and the panels are on the right. Open documents appear as tabs above the canvas. The menu bar holds File, Edit, Object, Type, Select, Effect, View, Window and Help.</p>
+<img src="img/painter-window.png" alt="Vectoria Painter with the Crown icon open and all four shapes selected" style="cursor:zoom-in;display:block;width:100%;max-width:900px;height:auto;border-radius:4px;margin:10px 0 0">
+<ul>
+  <li><b>Toolbar (left):</b> selection, shapes, drawing, modify, type, navigation and colour tools.</li>
+  <li><b>Panels (right):</b> <b>Properties</b>, <b>Layers</b> and <b>Libraries</b> share one dock, and the icon column beside it switches to other panels. Properties shows position, size, fill and stroke of the selection, or document settings when nothing is selected.</li>
+  <li><b>Contextual task bar:</b> a small floating bar that appears under the selection with shortcuts: offset path (grow or shrink an outline), simplify (fewer points) and duplicate.</li>
+  <li><b>Bottom left:</b> a cost meter that rates how heavy the artboard is to draw. See <a href="interface.html#cost-meter"><u>Interface</u></a>.</li>
+  <li><b>Bottom right:</b> a <b>Creative</b> or <b>Developer</b> mode badge. Creative is the default and shows every tool. Developer hides what the game cannot show. See <a href="modes.html"><u>Creative and Developer Mode</u></a>.</li>
+</ul>
+<h2>Learn more</h2>
 <ul>
   <li><a href="interface.html"><u>Interface</u></a>: the window, panels and preferences</li>
+  <li><a href="modes.html"><u>Creative and Developer Mode</u></a>: draw everything, or only what the game can show</li>
   <li><a href="drawing-tools.html"><u>Drawing tools</u></a>: selecting, drawing, shapes, type, modifying and measuring</li>
   <li><a href="documents-and-svg.html"><u>Documents, artboards and SVG</u></a>: layers, artboards, SVG in and out, image trace</li>
-  <li><a href="ai-skill.html"><u>AI skill</u></a>: let a coding agent draw through the Unity CLI</li>
 </ul>
-<p class="note">When you are done drawing, see <a href="../image/index.html"><u>Vectoria Image</u></a> for putting the artwork on screen.</p>
+<p class="note">Done drawing? <a href="../image/index.html"><u>Vectoria Image</u></a> shows the artwork on screen.</p>
           <div class="pager"><a class="prev" href="../getting-started/concepts.html"><small>Previous</small>Core Concepts</a><a class="next" href="interface.html"><small>Next</small>Interface</a></div>
         </article>
       </div>

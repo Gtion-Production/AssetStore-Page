@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class="cur d1" href="documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class=" d1" href="interface.html">Interface</a><a class=" d1" href="modes.html">Creative and Developer Mode</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class="cur d1" href="documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -49,21 +49,45 @@
         </aside>
         <article class="doc-body">
           <h1>Documents, Artboards and SVG</h1>
-          <p class="lead muted">Layers, artboards, SVG import/export and image trace.</p>
-          <h2>Layers and groups</h2>
-<p>Shapes live on layers; layers are z-bands from bottom to top. Group every logical part (an eye, a button) and name shapes <code>Part_Role</code> (for example <code>Eye_L_Iris</code>) so the document reads as a tree.</p>
+          <p class="lead muted">Layers, artboards, SVG, image trace and saving.</p>
+<p>A <code>.vpaint</code> document holds layers of shapes and one or more artboards. This page covers how to organise them, bring SVG and bitmaps in, and save.</p>
+<h2>New document</h2>
+<p><code>File &rsaquo; New Document</code> opens the size picker. Tabs hold presets: <b>Recent</b>, <b>Game</b> (square sizes from 32 to 2048 px), <b>Mobile</b> (phone and tablet screens and store icons), <b>Web</b> and <b>Social</b>. Or type a width and height, choose portrait or landscape, set how many artboards to start with, and add bleed (extra margin around the artboard, mostly for print; leave it at 0 for game art).</p>
+<img src="img/painter-new-document.png" alt="New Document dialog with size presets" style="cursor:zoom-in;display:block;width:100%;max-width:620px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>Layers and groups</h2>
+<p>Shapes live on layers, and layers are stacked from bottom to top. Open the <b>Layers</b> tab to see them. The top of the list is the front. Each row has an eye to show or hide it, and the buttons at the bottom of the panel move the selection up or down, add a layer and delete one.</p>
+<img src="img/painter-layers.png" alt="The Layers tab listing Ring, Rounded Rectangle, Path and Bg" style="cursor:zoom-in;display:block;width:100%;max-width:420px;height:auto;border-radius:4px;margin:10px 0 0">
+<ul>
+  <li><b>Group</b> the pieces of one part (an eye, a button) with <code>Ctrl+G</code> or the Group button in Properties. A group moves and scales as one.</li>
+  <li><b>Name</b> shapes with a <code>Part_Role</code> pattern, for example <code>Eye_L_Iris</code>, so you can find parts in the list. The names also become object IDs when you export SVG.</li>
+  <li>Use the search box at the top of the panel to find a shape by name.</li>
+</ul>
 <h2>Artboards</h2>
-<p>Add one artboard per variant or per icon. Each artboard is shown as its own image at runtime and can have its own import type. See <a href="../image/importer.html"><u>Importer</u></a>.</p>
+<p>An artboard is the rectangle of the canvas that you later show as one image. A document can have many, for example one icon per artboard, or variants of one icon. Open the panel from <code>Window &rsaquo; Artboards</code>.</p>
+<img src="img/painter-panels.png" alt="The Artboards panel with the active artboard's name, position, size and fill" style="cursor:zoom-in;display:block;width:100%;max-width:900px;height:auto;border-radius:4px;margin:10px 0 0">
+<ul>
+  <li><b>+ Artboard</b> adds one, <b>Fit</b> resizes it to the artwork, and <b>Delete</b> removes it.</li>
+  <li>Set the name, position (X, Y), size (W, H) and background fill of the active artboard in the same panel.</li>
+  <li>With the Artboard tool (<code>Shift+O</code>) drag on empty canvas to add one, or drag an artboard to move it.</li>
+  <li>Switch artboards with the picker in the help bar at the bottom or in Properties.</li>
+</ul>
+<p>Each artboard is shown as its own image in the game and has its own Asset Type in the importer (for example UI Vectoria). See <a href="../image/importer.html"><u>Importer</u></a>.</p>
 <h2>SVG</h2>
 <ul>
-  <li><b>Import:</b> bring in SVG as editable shapes. Use it for anything SVG can express.</li>
-  <li><b>Export:</b> write a document back out as SVG.</li>
+  <li><b>Import:</b> <code>File &rsaquo; Import SVG</code> brings an SVG in as editable shapes.</li>
+  <li><b>Export:</b> <code>File &rsaquo; Export &rsaquo; Export As SVG</code> writes the document, or the artboards you pick, back out as SVG. A dialog sets the options.</li>
 </ul>
-<h2>Image Trace</h2>
-<p>Open the Image Trace window to turn a bitmap into vector shapes. Check the result in the Stats panel; traced art is often heavy.</p>
+<img src="img/painter-svg-options.png" alt="SVG Options dialog with profile, styling, decimals, minify and artboards" style="cursor:zoom-in;display:block;width:100%;max-width:440px;height:auto;border-radius:4px;margin:10px 0 0">
+<h2>Placing and tracing bitmaps</h2>
+<p><code>File &rsaquo; Place Image</code> puts a bitmap on the canvas. To turn a bitmap into vector shapes, use <code>Object &rsaquo; Image Trace &rsaquo; Make</code>. Pick a preset (Black &amp; White, 3, 6 or 16 colours, High Fidelity) and adjust the number of colours, how small a speck (a tiny island of colour) can be before it is ignored, smoothness and the trace resolution. The preview shows the result before you commit, and the traced paths go onto a new layer fitted to the active artboard.</p>
+<img src="img/painter-image-trace.png" alt="Image Trace window with the original, the traced result and trace options" style="cursor:zoom-in;display:block;width:100%;max-width:760px;height:auto;border-radius:4px;margin:10px 0 0">
+<div class="note">Traced art is often heavy for the runtime. Check the cost meter in the bottom left, and use fewer colours and a larger speck size to keep it light.</div>
+<h2 id="export">Exporting images</h2>
+<p>You do not need to export to use a <code>.vpaint</code> in your game. Use <code>File &rsaquo; Export</code> only when you want an image file, such as a PNG for a website or an SVG to share. Pick the artboards, the folder, and the scales (1x is the artboard size, 2x and 3x make larger copies for high-density screens). The <b>iOS</b> and <b>Android</b> buttons fill in scale sets for those platforms.</p>
+<img src="img/painter-export.png" alt="Export dialog with artboard thumbnail and scale options" style="cursor:zoom-in;display:block;width:100%;max-width:620px;height:auto;border-radius:4px;margin:10px 0 0">
 <h2>Saving</h2>
-<p>Save writes the <code>.vpaint</code> in place. A saved document re-imports automatically and updates every image that uses it.</p>
-          <div class="pager"><a class="prev" href="drawing-tools.html"><small>Previous</small>Drawing Tools</a><a class="next" href="ai-skill.html"><small>Next</small>AI Skill</a></div>
+<p><code>File &rsaquo; Save</code> (<code>Ctrl+S</code>) writes the <code>.vpaint</code> in place, and <b>Save As</b> (<code>Ctrl+Shift+S</code>) makes a copy. A saved document re-imports automatically and updates every image that uses it. Closing a tab with unsaved changes asks whether to save.</p>
+          <div class="pager"><a class="prev" href="drawing-tools.html"><small>Previous</small>Drawing Tools</a><a class="next" href="../image/index.html"><small>Next</small>Vectoria Image (Renderer)</a></div>
         </article>
       </div>
     </div>

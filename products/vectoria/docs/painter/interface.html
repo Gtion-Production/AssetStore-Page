@@ -30,7 +30,7 @@
       <div class="docs">
         <aside class="toc tree" aria-label="Documentation">
           <b>Documentation</b>
-          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class="cur d1" href="interface.html">Interface</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a><a class=" d1" href="ai-skill.html">AI Skill</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
+          <a class=" d0" href="../index.html">Overview</a><details class="grp" data-k="getting-started/index"><summary><a class=" d0" href="../getting-started/index.html">Getting Started</a></summary><a class=" d1" href="../getting-started/installation.html">Installation</a><a class=" d1" href="../getting-started/quick-start.html">Quick Start</a><a class=" d1" href="../getting-started/concepts.html">Core Concepts</a></details><details class="grp" data-k="painter/index" open><summary><a class="anc d0" href="index.html">Vectoria Painter (Editor)</a></summary><a class="cur d1" href="interface.html">Interface</a><a class=" d1" href="modes.html">Creative and Developer Mode</a><a class=" d1" href="drawing-tools.html">Drawing Tools</a><a class=" d1" href="documents-and-svg.html">Documents, Artboards and SVG</a></details><details class="grp" data-k="image/index"><summary><a class=" d0" href="../image/index.html">Vectoria Image (Renderer)</a></summary><a class=" d1" href="../image/choosing-a-resolver.html">Choosing a Resolver</a><a class=" d1" href="../image/optimization.html">How Drawing Is Optimized</a><a class=" d1" href="../image/runtime-raster.html">Runtime Raster</a><a class=" d1" href="../image/importer.html">Importer</a><a class=" d1" href="../image/settings.html">Settings</a><details class="grp" data-k="image/uitk/index"><summary><a class=" d1" href="../image/uitk/index.html">UI Toolkit</a></summary><a class=" d2" href="../image/uitk/shader-setup.html">Shader Setup</a><a class=" d2" href="../image/uitk/batch-group.html">VectorBatchGroup</a></details><details class="grp" data-k="image/ugui/index"><summary><a class=" d1" href="../image/ugui/index.html">uGUI</a></summary><a class=" d2" href="../image/ugui/canvas-setup.html">Canvas Setup</a><a class=" d2" href="../image/ugui/raster-lod.html">Raster LOD</a></details></details>
                   <script>
 (function () {
   var K = "vectoria-docs-folds", saved = {};
@@ -49,26 +49,62 @@
         </aside>
         <article class="doc-body">
           <h1>Interface</h1>
-          <p class="lead muted">The painter window, its panels and dialogs.</p>
-          <p>The window is titled <b>Vectoria Painter</b>. It has a toolbar of tools, a canvas, and docked panels.</p>
+          <p class="lead muted">The painter window, its panels, bars and modes.</p>
+<p>This page walks through the painter window part by part. For a first look at the whole window, see the <a href="index.html"><u>overview</u></a>.</p>
+<h2>Menu bar</h2>
+<p><b>File</b> creates, opens, saves, places images, imports SVG and exports. <b>Object</b> holds grouping, locking, path and Pathfinder commands. <b>Window</b> turns panels and bars on and off.</p>
+<img src="img/painter-menu-file.png" alt="File menu with New Document, Open, Save, Place Image, Import SVG and Export" style="cursor:zoom-in;display:block;width:100%;max-width:320px;height:auto;border-radius:4px;margin:10px 0 0">
 <h2>Panels</h2>
-<table>
-  <tr><th>Panel</th><th>Use</th></tr>
-  <tr><td>Appearance</td><td>Fills, strokes, opacity and effects of the selection.</td></tr>
-  <tr><td>Pathfinder</td><td>Boolean operations on shapes (unite, subtract, intersect, and so on).</td></tr>
-  <tr><td>Stats</td><td>Complexity of the document (shape and segment counts).</td></tr>
-</table>
+<p>The dock on the right has three tabs. The column of icons beside it switches to the other panels, such as Appearance, Gradient, Type and Artboards.</p>
+<h3>Properties</h3>
+<p>Shows position, size, rotation, fill, stroke, opacity and alignment of whatever is selected, plus quick actions like Group, Recolor, Offset Path and Simplify. With nothing selected it shows document settings: the active artboard, grid size, guides, snapping, and a shortcut to Preferences.</p>
+<img src="img/painter-properties.png" alt="Properties panel with no selection, showing document, grid and snap settings" style="cursor:zoom-in;display:block;width:100%;max-width:420px;height:auto;border-radius:4px;margin:10px 0 0">
+<h3>Layers</h3>
+<p>Lists layers and the shapes inside them. See <a href="documents-and-svg.html"><u>Documents, Artboards and SVG</u></a>.</p>
+<h3>Libraries</h3>
+<p>Four sub-tabs: <b>Swatches</b> (which also holds gradients and patterns), <b>Brushes</b>, <b>Symbols</b> and <b>Styles</b>. Click a swatch to apply it to the fill, or to the stroke when stroke is active (press <code>X</code> to switch).</p>
+<img src="img/painter-libraries.png" alt="Libraries tab with Swatches, Brushes, Symbols and Styles sub-tabs" style="cursor:zoom-in;display:block;width:100%;max-width:420px;height:auto;border-radius:4px;margin:10px 0 0">
+<h3>Other panels</h3>
+<p>Open any panel from the <code>Window</code> menu. A panel can float over the canvas or stay docked, and <code>Window &rsaquo; Workspace</code> switches between layouts: Painting, Typography, Layout and Minimal. The shortcuts shown in the menu, such as <code>F7</code> for Layers, show or hide the panel.</p>
+<img src="img/painter-menu-window.png" alt="Window menu listing panels, bars and workspaces" style="cursor:zoom-in;display:block;width:100%;max-width:300px;height:auto;border-radius:4px;margin:10px 0 0">
+<p>The <b>Pathfinder</b> panel combines shapes: Unite, Minus Front, Intersect and Exclude, plus Divide, Trim, Merge, compound paths, clipping masks and path clean-up. The <b>Artboards</b> panel manages artboards.</p>
+<h2>Bars</h2>
+<ul>
+  <li><b>Toolbar</b> (left): the tools. See <a href="drawing-tools.html"><u>Drawing Tools</u></a>.</li>
+  <li><b>Contextual task bar</b> (floating under the selection): shortcuts such as Offset Path, Simplify and Duplicate.</li>
+  <li><b>Help bar</b> (bottom): the active tool with a hint for how to use it, the zoom, the artboard switcher, the cursor position and the render time.</li>
+  <li><b>Stats</b> (bottom left): the cost meter, described below.</li>
+</ul>
+<p>All of them can be hidden from the <code>Window</code> menu.</p>
+<h2 id="cost-meter">The cost meter (Stats)</h2>
+<p>The badge at the bottom left rates how much GPU work the active artboard needs when it is drawn by the <b>Shader</b> resolver (the main way Vectoria Image draws, see <a href="../image/choosing-a-resolver.html"><u>Choosing a resolver</u></a>). The number is in units, where one unit is one outline segment checked per pixel, and a gradient counts as 8 units. The levels are Cheap (under 15), Moderate (under 30), Heavy (under 100) and Very heavy.</p>
+<img src="img/painter-stats.png" alt="Cost meter tooltip explaining shader work and thresholds" style="cursor:zoom-in;display:block;width:100%;max-width:420px;height:auto;border-radius:4px;margin:10px 0 0">
+<ul>
+  <li><b>Cheap and Moderate</b> artwork is fine to repeat many times on screen.</li>
+  <li><b>Heavy and Very heavy</b> artwork costs more GPU time for every pixel it covers, so it adds up when it is large or repeated. Simplify it (fewer points, fewer gradients), or let Vectoria draw it from a bitmap tile. Traced artwork is often Very heavy.</li>
+  <li>The tooltip also says whether the artboard is big enough for a runtime raster bake (from 15 units). See <a href="../image/runtime-raster.html"><u>Runtime Raster</u></a>.</li>
+</ul>
+<h2>Creative and Developer mode</h2>
+<p>The painter has two modes. <b>Creative</b> offers every feature, and <b>Developer</b> hides what the game renderer cannot draw. The badge at the bottom right of the window shows the current mode, and you can click it to change it. See <a href="modes.html"><u>Creative and Developer Mode</u></a> for what each one does and which to pick.</p>
+<h2>Preferences</h2>
+<img src="img/painter-preferences.png" alt="Preferences window with mode, theme, text size, zoom and status bar options" style="cursor:zoom-in;display:block;width:100%;max-width:440px;height:auto;border-radius:4px;margin:10px 0 0">
+<ul>
+  <li><b>Mode:</b> Creative or Developer, see <a href="modes.html"><u>Creative and Developer Mode</u></a>.</li>
+  <li><b>Theme:</b> a colour preset, with <b>Edit</b> to make your own. You can also open <code>Window &rsaquo; Theme Settings</code>.</li>
+  <li><b>Text size:</b> scales the editor text from 50% to 200%.</li>
+  <li><b>Zoom and move:</b> Interpolated eases wheel zoom and pan, Instant snaps to the new view.</li>
+  <li><b>Render time:</b> shows or hides the render time next to the cursor position.</li>
+</ul>
 <h2>Windows and dialogs</h2>
 <ul>
-  <li><b>New Document</b>: set the size and background of a new <code>.vpaint</code>.</li>
-  <li><b>Export</b>: save SVG and image output.</li>
-  <li><b>Image Trace</b>: turn a bitmap into vector shapes.</li>
-  <li><b>Preferences</b> and <b>Themes</b>: editor look and behavior.</li>
-  <li><b>Font Picker</b> with a Google Fonts installer for type.</li>
+  <li><b>New Document:</b> size presets and bleed. See <a href="index.html"><u>the overview</u></a>.</li>
+  <li><b>Export:</b> PNG and SVG output.</li>
+  <li><b>Image Trace:</b> turns a bitmap into vector shapes.</li>
+  <li><b>Font Picker:</b> chooses a font for text, with a Google Fonts installer.</li>
 </ul>
 <h2>Project settings</h2>
-<p>Runtime defaults (default resolvers, default raster size) live in <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code>. See <a href="../image/settings.html"><u>Settings</u></a>.</p>
-          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Vectoria Painter (Editor)</a><a class="next" href="drawing-tools.html"><small>Next</small>Drawing Tools</a></div>
+<p>Runtime defaults (default resolvers, default raster size) are not in the painter. They live in <code>Tools &rsaquo; Vectoria &rsaquo; Vectoria Settings</code>. See <a href="../image/settings.html"><u>Settings</u></a>.</p>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Vectoria Painter (Editor)</a><a class="next" href="modes.html"><small>Next</small>Creative and Developer Mode</a></div>
         </article>
       </div>
     </div>
