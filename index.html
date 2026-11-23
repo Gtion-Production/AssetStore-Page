@@ -45,8 +45,8 @@
   .slides { position: absolute; inset: var(--header-h) 0 0 0; }
   .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; pointer-events: none; display: block; }
   .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
-  .slide .bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(28px) brightness(.55); transform: scale(1.1); }
-  .slide img.art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+  .slide .bg { display: none; }
+  .slide img.art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
   .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,0) 45%); }
   .caption { position: absolute; left: 80px; bottom: 150px; z-index: 3; border-left: 6px solid var(--accent); padding-left: 16px; max-width: 460px; text-shadow: 0 1px 8px rgba(0,0,0,.7); pointer-events: none; }
   .caption h1 { font: 700 38px/1.15 var(--font-heading); }
