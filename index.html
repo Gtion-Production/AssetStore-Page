@@ -88,14 +88,17 @@
 
   /* Asset grid */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; }
-  .card { border: 1px solid #e5e5e5; transition: transform .2s, box-shadow .2s; }
+  .card { background: #fff; border: 1px solid #e5e5e5; transition: transform .2s, box-shadow .2s; }
   .card:hover { transform: translateY(-4px); box-shadow: 3px 3px 0 rgba(9,177,236,.3), 5px 6px 14px rgba(9,177,236,.3); }
-  .thumb { aspect-ratio: 4/3; background: linear-gradient(135deg, #cfd8e3, #8fa6c2); overflow: hidden; }
+  .thumb { position: relative; aspect-ratio: 4/3; background: linear-gradient(135deg, #cfd8e3, #8fa6c2); overflow: hidden; }
   .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .card:nth-child(2n) .thumb { background: linear-gradient(135deg, #e3d6cf, #c2a18f); }
   .card:nth-child(3n) .thumb { background: linear-gradient(135deg, #d3e3cf, #8fc29a); }
   .card div.meta { padding: 14px 16px; }
   .card h3 { font: 600 15px var(--font-heading); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag { font: 600 11px var(--font-heading); text-transform: uppercase; letter-spacing: .04em; background: #f1f1f1; color: #444; padding: 2px 8px; border-radius: 2px; }
+  .tag.soon { background: var(--accent); color: #000; position: absolute; top: 10px; right: 10px; }
   .card small { color: var(--text-muted); }
 
   /* News */
@@ -183,10 +186,10 @@
       <div class="tabs"><span>Products</span></div>
       <h2>Our Products</h2>
       <div class="grid">
-        <a class="card" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"></div><div class="meta"><h3>NeuralNet Pro</h3><small>Neural Network Toolkit for Unity</small></div></a>
-        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Easy Object Pooling for Unity</small></div></a>
-        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Addressables Wrapper for Unity</small></div></a>
-        <a class="card" href="products/vectoria/index.html"><div class="thumb" style="background:#000 url('images/vectoria.png') center/cover"></div><div class="meta"><h3>Vectoria</h3><small>Illustrator & Renderer for Unity UI · Coming Soon</small></div></a>
+        <a class="card" href="products/vectoria/index.html"><div class="thumb" style="background:#000 url('images/vectoria.png') 0% 50%/cover"><span class="tag soon">Coming Soon</span></div><div class="meta"><h3>Vectoria</h3><small>Illustrator & Renderer for Unity UI</small><div class="tags"><span class="tag">UI &amp; Renderer</span></div></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"><span class="tag soon">2.0 Soon</span></div><div class="meta"><h3>NeuralNet Pro</h3><small>Neural Network Toolkit for Unity</small><div class="tags"><span class="tag">Machine Learning</span></div></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Easy Object Pooling for Unity</small><div class="tags"><span class="tag">Runtime Tool</span></div></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Addressables Wrapper for Unity</small><div class="tags"><span class="tag">Runtime Tool</span></div></div></a>
       </div>
     </div>
   </section>
