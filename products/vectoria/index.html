@@ -25,7 +25,7 @@
 
 <main>
   <section>
-    <div class="container">
+    <div class="container wide">
       <div class="crumbs"><a href="../../index.html#products">Products</a> / Vectoria</div>
       <div class="product-hero">
         <div class="thumb-lg"><img src="../../images/vectoria.png" alt="Vectoria key art" width="800" height="450"></div>
@@ -44,22 +44,33 @@
   </section>
 
   <section id="overview" style="padding-top:0">
-    <div class="container">
+    <div class="container wide">
       <div class="tabs"><span>Overview</span></div>
       <h2>One toolset for vector graphics in Unity</h2>
       <p>Vectoria lets you draw icons, HUD graphics and illustrations in a built-in vector editor, save them as <code>.vpaint</code> documents, and render them crisply at any size in UI Toolkit or uGUI. Requires Unity 6000.3 or newer.</p>
 
       <div class="features">
-        <div class="feature"><h3>Vector Editor</h3><p>Draw shapes and paths, import SVG, and save artwork as <code>.vpaint</code> documents. Open it from Tools &rsaquo; Vectoria.</p></div>
+        <div class="feature"><h3>Illustrator</h3><p>Draw vector art with a full set of shape, pen and type tools. Import and export SVG, export PNG and JPEG, and save as <code>.vpaint</code> documents.</p></div>
+        <div class="feature"><h3>uGUI &amp; UI Toolkit</h3><p>Supports both Unity UI systems, each with its own optimized renderer: <code>VectoriaImage</code> for uGUI and <code>VectoriaImageElement</code> for UI Toolkit.</p></div>
         <div class="feature"><h3>Runtime Renderer</h3><p>Automatic GPU shader drawing with fast mesh and raster fallbacks, plus single-mesh batching for many icons.</p></div>
-        <div class="feature"><h3>UI Toolkit &amp; uGUI</h3><p>Use <code>VectorImageElement</code> in UI Toolkit or <code>VectorImage</code> in uGUI so interfaces stay sharp on every screen.</p></div>
-        <div class="feature"><h3>Animation &amp; AI Skill</h3><p>Animate artwork at runtime with records (experimental), and let a coding agent draw and inspect documents through the included skill.</p></div>
       </div>
+
+      <h3>Highlights</h3>
+      <ul>
+        <li><b>uGUI and UI Toolkit.</b> Works with both UI systems, so you can use the same artwork in either.</li>
+        <li><b>Pre-baked for runtime.</b> On import, a <code>.vpaint</code> is precompiled into shader data and small raster tiles stored in the asset, so artwork is ready on the first frame with no runtime setup cost. The baked data is far smaller than a raster export.</li>
+        <li><b>Shader resolver.</b> Each icon is a single quad with nothing tessellated, and the GPU works out the shape per pixel. Edges stay crisp at any size.</li>
+        <li><b>Low draw calls.</b> Icons batch together, so thousands of them draw in a handful of calls instead of one per icon.</li>
+        <li><b>Raster LOD.</b> Small icons switch to a pre-baked raster tile, and everything else stays on the vector shader. Tiles are baked at import and share one atlas, so they batch with the rest.</li>
+        <li><b>Agent-friendly.</b> The included skill lets a coding agent such as Claude Code create, draw, render and check documents.</li>
+      </ul>
+
+      <p class="muted"><b>Requires:</b> Unity 6000.3+, URP for the shader resolver, and the <code>Vector_Painter_Enabled</code> scripting define. Start with the <a href="docs/getting-started/quick-start.html"><u>Quick Start</u></a>.</p>
     </div>
   </section>
 
   <section id="get" style="padding-top:0">
-    <div class="container">
+    <div class="container wide">
       <div class="tabs"><span>Availability</span></div>
       <h2>Release</h2>
       <p>Vectoria is not yet on the Unity Asset Store. Follow the <a href="../../index.html#contact"><u>Gtion community</u></a> to hear about the release, and read the <a href="docs/index.html"><u>documentation</u></a> in the meantime.</p>

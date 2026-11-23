@@ -139,3 +139,9 @@ html { scrollbar-gutter: stable; overflow-y: scroll; }
 .toc.tree details.grp > summary::after { content: ""; position: absolute; right: 8px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 2px solid #848383; border-bottom: 2px solid #848383; transform: rotate(-45deg); }
 .toc.tree details.grp[open] > summary::after { transform: rotate(45deg); margin-top: -8px; }
 .toc.tree details.grp > summary:hover::after { border-color: #000; }
+
+/* Product page overview list */
+#overview ul { margin: 0 0 16px 22px; max-width: 70ch; }
+#overview li { margin-bottom: 6px; }
+#overview .features { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 768px) { #overview .features { grid-template-columns: 1fr; } }
