@@ -6,7 +6,7 @@
   --text-on-dark: #fff;
   --text-muted: #6b6a6a;
   --accent: #09b1ec;
-  --header-h: 90px;
+  --header-h: 68px;
   --container: 1000px;
   --font-heading: "Poppins", "Noto Sans", system-ui, sans-serif;
   --font-body: "Noto Sans", system-ui, sans-serif;
@@ -24,9 +24,9 @@ a { color: inherit; text-decoration: none; }
 /* Header */
 header { position: fixed; inset: 0 0 auto 0; height: var(--header-h); background: var(--bg-header); z-index: 10; }
 header .container { height: 100%; max-width: none; padding: 0 56px; display: flex; align-items: center; justify-content: space-between; }
-.logo img { display: block; height: 76px; width: auto; }
+.logo img { display: block; height: 56px; width: auto; }
 nav { display: flex; gap: 72px; }
-nav a { font: 700 18px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 6px; border-bottom: 4px solid transparent; transition: color .2s; }
+nav a { font: 700 16px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 6px; border-bottom: 4px solid transparent; transition: color .2s; }
 nav a:hover, nav a.active { color: var(--text-on-dark); }
 nav a.active { border-color: var(--accent); }
 

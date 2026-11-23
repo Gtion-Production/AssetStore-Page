@@ -16,7 +16,7 @@
     --text-muted: #6b6a6a;
     --accent: #09b1ec;
     --overlay: rgba(0, 0, 0, .5);
-    --header-h: 90px;
+    --header-h: 68px;
     --container: 1000px;
     --radius-icon: 10px;
     --font-heading: "Poppins", "Noto Sans", system-ui, sans-serif;
@@ -34,20 +34,20 @@
   header { position: fixed; inset: 0 0 auto 0; height: var(--header-h); background: var(--bg-header); z-index: 10; }
   header .container { height: 100%; max-width: none; padding: 0 56px; display: flex; align-items: center; justify-content: space-between; }
   .logo { display: flex; align-items: center; }
-  .logo img { display: block; height: 76px; width: auto; }
+  .logo img { display: block; height: 56px; width: auto; }
   nav { display: flex; gap: 72px; }
-  nav a { font: 700 18px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 6px; border-bottom: 4px solid transparent; transition: color .2s; }
+  nav a { font: 700 16px var(--font-heading); text-transform: uppercase; color: #848383; padding-bottom: 6px; border-bottom: 4px solid transparent; transition: color .2s; }
   nav a:hover, nav a.active { color: var(--text-on-dark); }
   nav a.active { border-color: var(--accent); }
 
   /* Hero carousel */
-  .hero { position: relative; height: calc(var(--header-h) + 100vw * 2 / 3); min-height: 520px; padding-top: var(--header-h); background: #000; color: var(--text-on-dark); overflow: hidden; }
+  .hero { position: relative; height: min(calc(var(--header-h) + 100vw * 2 / 3), 100vh); min-height: 520px; padding-top: var(--header-h); background: #000; color: var(--text-on-dark); overflow: hidden; }
   .slides { position: absolute; inset: var(--header-h) 0 0 0; }
   .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease; pointer-events: none; display: block; }
   .slide.active { opacity: 1; pointer-events: auto; z-index: 1; }
   .slide .bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(28px) brightness(.55); transform: scale(1.1); }
-  .slide img.art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
-  .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,0) 45%); }
+  .slide img.art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.7) 18%, rgba(0,0,0,.35) 38%, rgba(0,0,0,0) 62%), linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 15%); }
   .caption { position: absolute; left: 80px; bottom: 150px; z-index: 3; border-left: 6px solid var(--accent); padding-left: 16px; max-width: 460px; text-shadow: 0 1px 8px rgba(0,0,0,.7); pointer-events: none; }
   .caption h1 { font: 700 38px/1.15 var(--font-heading); }
   .caption p { font-size: 18px; margin-top: 4px; }
@@ -120,7 +120,7 @@
     nav { gap: 16px; }
     nav a { font-size: 13px; border-bottom-width: 3px; }
     nav a:nth-child(n+4) { display: none; }
-    .hero { height: calc(var(--header-h) + 100vw * 2 / 3); min-height: 440px; }
+    .hero { height: min(calc(var(--header-h) + 100vw * 2 / 3), 100vh); min-height: 440px; }
     .caption { left: 20px; bottom: 110px; max-width: 70%; }
     .caption h1 { font-size: 24px; } .caption p { font-size: 14px; }
     .arrow { width: 40px; height: 40px; } .arrow.prev { left: 10px; } .arrow.next { right: 10px; }
@@ -183,10 +183,10 @@
       <div class="tabs"><span>Products</span></div>
       <h2>Our Products</h2>
       <div class="grid">
-        <a class="card" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"></div><div class="meta"><h3>NeuralNet Pro</h3><small>Machine Learning</small></div></a>
-        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Utilities</small></div></a>
-        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Utilities</small></div></a>
-        <a class="card" href="products/vectoria/index.html"><div class="thumb" style="background:#000 url('images/vectoria.png') center/cover"></div><div class="meta"><h3>Vectoria</h3><small>Tools · Coming Soon</small></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/add-ons/machinelearning/neuralnet-pro-by-gtion-294717" target="_blank" rel="noopener"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"></div><div class="meta"><h3>NeuralNet Pro</h3><small>Neural Network Toolkit for Unity</small></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/grand-pool-by-gtion-298878" target="_blank" rel="noopener"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Easy Object Pooling for Unity</small></div></a>
+        <a class="card" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Addressables Wrapper for Unity</small></div></a>
+        <a class="card" href="products/vectoria/index.html"><div class="thumb" style="background:#000 url('images/vectoria.png') center/cover"></div><div class="meta"><h3>Vectoria</h3><small>Illustrator & Renderer for Unity UI · Coming Soon</small></div></a>
       </div>
     </div>
   </section>
@@ -217,7 +217,7 @@
       <div class="tabs"><span>Contact Us</span></div>
       <h2>Get in Touch</h2>
       <p class="contact-text">Questions, feedback or support? Join our community on Discord.</p>
-      <a class="btn" href="https://discord.gg/Z3Yv8SfVdb" target="_blank" rel="noopener noreferrer">Join our Discord</a>
+      <a class="btn" href="https://discord.gg/Z3Yv8SfVdb" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>Join our Discord</a>
     </div>
   </section>
 </main>
@@ -232,7 +232,7 @@
 <script>
   // Hero carousel
   (function () {
-    var data = [["NeuralNet Pro", "Machine Learning"], ["Grand Pool", "Utilities"], ["Addressable Manager", "Utilities"], ["Vectoria", "Tools"]];
+    var data = [["NeuralNet Pro", "Neural Network Toolkit for Unity"], ["Grand Pool", "Easy Object Pooling for Unity"], ["Addressable Manager", "Addressables Wrapper for Unity"], ["Vectoria", "Illustrator & Renderer for Unity UI"]];
     var slides = document.querySelectorAll('.slide'), thumbs = document.querySelectorAll('.thumbs button');
     var title = document.getElementById('cap-title'), sub = document.getElementById('cap-sub');
     var i = 0, timer;
