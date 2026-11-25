@@ -56,7 +56,7 @@
   .arrow svg { width: 26px; height: 26px; }
   .arrow.prev { left: 40px; } .arrow.next { right: 40px; }
   .thumbs { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 4; display: flex; gap: 10px; padding: 10px; background: rgba(0,0,0,.6); border-radius: 12px; }
-  .thumbs button { width: 68px; height: 56px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: #222; opacity: .6; transition: opacity .2s, border-color .2s; }
+  .thumbs button { width: 60px; height: 60px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: #222; opacity: .6; transition: opacity .2s, border-color .2s; }
   .thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .thumbs button:hover { opacity: 1; }
   .thumbs button.active { opacity: 1; border-color: var(--accent); }
@@ -154,7 +154,7 @@
     .caption { left: 20px; bottom: 110px; max-width: 70%; }
     .caption h1 { font-size: 24px; } .caption p { font-size: 14px; }
     .arrow { width: 40px; height: 40px; } .arrow.prev { left: 10px; } .arrow.next { right: 10px; }
-    .thumbs { gap: 6px; padding: 6px; bottom: 16px; } .thumbs button { width: 44px; height: 38px; }
+    .thumbs { gap: 6px; padding: 6px; bottom: 16px; } .thumbs button { width: 42px; height: 42px; }
     .news-row { flex-wrap: wrap; }
   }
 </style>
@@ -193,10 +193,10 @@
     <button class="arrow prev" type="button" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
     <button class="arrow next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4l8 8-8 8"/></svg></button>
     <div class="thumbs">
-      <button type="button" class="active" aria-label="NeuralNet Pro"><img src="images/neuralnet-pro.webp" alt=""></button>
-      <button type="button" aria-label="Grand Pool"><img src="images/grand-pool.png" alt=""></button>
-      <button type="button" aria-label="Addressable Manager"><img src="images/addressable-manager.png" alt=""></button>
-      <button type="button" aria-label="Vectoria"><img src="images/vectoria.png" alt=""></button>
+      <button type="button" class="active" aria-label="NeuralNet Pro"><img src="images/icons/neuralnet-pro.png" alt=""></button>
+      <button type="button" aria-label="Grand Pool"><img src="images/icons/grand-pool.png" alt=""></button>
+      <button type="button" aria-label="Addressable Manager"><img src="images/icons/addressable-manager.png" alt=""></button>
+      <button type="button" aria-label="Vectoria"><img src="images/icons/vectoria.png" alt=""></button>
     </div>
   </div>
 
@@ -218,10 +218,10 @@
         <article class="showcase-item"><div class="showcase-art"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="showcase-info"><h3>Grand Pool</h3><div class="bar">Runtime Tool</div><p>The easiest solution for a pooling system. Setup is not essential, just call Prefab.GetPool() and that is it! Instead of constantly creating and destroying objects, a pool keeps inactive objects ready to be reused, which saves performance and avoids memory fragmentation.</p><p>It pools GameObjects, native components (Mesh, ParticleSystem, SpriteRenderer and more) and custom MonoBehaviour classes. It also offers prewarming, pool limits and automatic cleanup, and it is mobile friendly.</p></div></article>
         <article class="showcase-item"><div class="showcase-art"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="showcase-info"><h3>Addressable Manager</h3><div class="bar">Runtime Tool</div><p>A wrapper package that makes using Unity Addressables easier. Addressables is a powerful system, but it can be inefficient to use, so this package simplifies it. You can call LoadAssetAsync on the same reference again and again without errors.</p><p>It simplifies asset loading, scene loading and on-demand downloads, lets addressables reference MonoBehaviours, and avoids shader loading errors on specific platforms.</p></div></article>
         <div class="showcase-thumbs">
-          <button type="button" class="active" aria-label="Vectoria"><img src="images/vectoria.png" alt="" style="object-position:0% 50%"></button>
-          <button type="button" aria-label="NeuralNet Pro"><img src="images/neuralnet-pro.webp" alt=""></button>
-          <button type="button" aria-label="Grand Pool"><img src="images/grand-pool.png" alt=""></button>
-          <button type="button" aria-label="Addressable Manager"><img src="images/addressable-manager.png" alt=""></button>
+          <button type="button" class="active" aria-label="Vectoria"><img src="images/icons/vectoria.png" alt=""></button>
+          <button type="button" aria-label="NeuralNet Pro"><img src="images/icons/neuralnet-pro.png" alt=""></button>
+          <button type="button" aria-label="Grand Pool"><img src="images/icons/grand-pool.png" alt=""></button>
+          <button type="button" aria-label="Addressable Manager"><img src="images/icons/addressable-manager.png" alt=""></button>
         </div>
       </div>
     </div>
