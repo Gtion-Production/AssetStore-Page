@@ -86,6 +86,33 @@
     border: 3px solid var(--accent); z-index: -1; }
   @media (max-width: 700px) { .about::before, .about::after, .about .container::after { display: none; } }
 
+  /* Product showcase (Yostar-style) */
+  #products .container { max-width: 1240px; }
+  .showcase-item { display: none; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  .showcase-item.active { display: grid; animation: showIn .45s ease; }
+  @keyframes showIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .showcase-art { position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
+  .showcase-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .showcase-art .tag.soon { top: 14px; right: 14px; font-size: 13px; padding: 4px 12px; }
+  .showcase-info { display: flex; flex-direction: column; align-self: stretch; }
+  .showcase-info h3 { font: 700 clamp(30px, 3.6vw, 48px)/1.05 var(--font-heading); text-transform: uppercase; text-align: right; }
+  .showcase-info .bar { align-self: flex-end; margin-top: 6px; background: var(--accent); font: 700 13px var(--font-heading); text-align: center; padding: 0 24px; min-width: 60%; }
+  .showcase-info p { margin-top: 20px; font-size: 15px; line-height: 1.8; }
+  .showcase-info p + p { margin-top: 12px; }
+  .showcase-btn { align-self: flex-end; margin-top: auto; padding: 10px 40px; border: 2px solid #8a8a8a; border-radius: 999px; color: #6b6a6a; font: 600 20px var(--font-heading); text-transform: uppercase; letter-spacing: .06em; transition: background .2s, color .2s, border-color .2s; }
+  .showcase-btn:hover { background: #000; border-color: #000; color: #fff; }
+  .showcase-thumbs { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .showcase-thumbs button { width: 100px; height: 100px; padding: 0; border: 4px solid #fff; border-radius: 22px; overflow: hidden; cursor: pointer; background: #222; box-shadow: 0 0 0 1px #ddd; opacity: .55; transition: opacity .2s, box-shadow .2s, transform .2s; }
+  .showcase-thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .showcase-thumbs button:hover { opacity: 1; transform: translateY(-3px); box-shadow: 0 0 0 1px #ddd, 3px 3px 0 rgba(9,177,236,.3), 5px 6px 14px rgba(9,177,236,.3); }
+  .showcase-thumbs button.active { opacity: 1; box-shadow: 0 0 0 3px var(--accent); }
+  @media (max-width: 900px) {
+    .showcase-item.active { grid-template-columns: 1fr; gap: 20px; }
+    .showcase-info h3, .showcase-info .bar { text-align: left; align-self: flex-start; }
+    .showcase-btn { margin-top: 20px; font-size: 16px; padding: 8px 28px; }
+    .showcase-thumbs button { width: 72px; height: 72px; border-radius: 16px; }
+  }
+
   /* Asset grid */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; margin-top: 32px; }
   .card { background: #fff; border: 1px solid #e5e5e5; transition: transform .2s, box-shadow .2s; }
@@ -185,11 +212,17 @@
     <div class="container">
       <div class="tabs"><span>Products</span></div>
       <h2>Our Products</h2>
-      <div class="grid">
-        <a class="card" href="products/vectoria/index.html"><div class="thumb" style="background:#000 url('images/vectoria.png') 0% 50%/cover"><span class="tag soon">Coming Soon</span></div><div class="meta"><h3>Vectoria</h3><small>Illustrator & Renderer for Unity UI</small><div class="tags"><span class="tag">UI &amp; Renderer</span></div></div></a>
-        <div class="card"><div class="thumb"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"><span class="tag soon">2.0 Soon</span></div><div class="meta"><h3>NeuralNet Pro</h3><small>Neural Network Toolkit for Unity</small><div class="tags"><span class="tag">Machine Learning</span></div></div></div>
-        <div class="card"><div class="thumb"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="meta"><h3>Grand Pool</h3><small>Easy Object Pooling for Unity</small><div class="tags"><span class="tag">Runtime Tool</span></div></div></div>
-        <div class="card"><div class="thumb"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="meta"><h3>Addressable Manager</h3><small>Addressables Wrapper for Unity</small><div class="tags"><span class="tag">Runtime Tool</span></div></div></div>
+      <div class="showcase">
+        <article class="showcase-item active"><div class="showcase-art"><img src="images/vectoria.png" alt="Vectoria" style="object-position:0% 50%"><span class="tag soon">Coming Soon</span></div><div class="showcase-info"><h3>Vectoria</h3><div class="bar">UI &amp; Renderer</div><p>Vectoria is an illustrator and renderer for Unity UI. Draw and render vector graphics right inside your UI.</p><a class="showcase-btn" href="products/vectoria/index.html">View</a></div></article>
+        <article class="showcase-item"><div class="showcase-art"><img src="images/neuralnet-pro.webp" alt="NeuralNet Pro"><span class="tag soon">2.0 Soon</span></div><div class="showcase-info"><h3>NeuralNet Pro</h3><div class="bar">Machine Learning</div><p>NeuralNet Pro is a machine learning package built on neural networks, supporting supervised and reinforcement learning. Train at runtime or in a build, on the main thread, multithreaded, with Jobs or GPU compute shaders.</p><p>Pure C# with no dependencies, so you can start right away and modify it freely. Supports multiple agents and asynchronous execution.</p></div></article>
+        <article class="showcase-item"><div class="showcase-art"><img src="images/grand-pool.png" alt="Grand Pool"></div><div class="showcase-info"><h3>Grand Pool</h3><div class="bar">Runtime Tool</div><p>The easiest solution for a pooling system. Setup is not essential, just call Prefab.GetPool() and that is it! Instead of constantly creating and destroying objects, a pool keeps inactive objects ready to be reused, which saves performance and avoids memory fragmentation.</p><p>It pools GameObjects, native components (Mesh, ParticleSystem, SpriteRenderer and more) and custom MonoBehaviour classes. It also offers prewarming, pool limits and automatic cleanup, and it is mobile friendly.</p></div></article>
+        <article class="showcase-item"><div class="showcase-art"><img src="images/addressable-manager.png" alt="Addressable Manager"></div><div class="showcase-info"><h3>Addressable Manager</h3><div class="bar">Runtime Tool</div><p>A wrapper package that makes using Unity Addressables easier. Addressables is a powerful system, but it can be inefficient to use, so this package simplifies it. You can call LoadAssetAsync on the same reference again and again without errors.</p><p>It simplifies asset loading, scene loading and on-demand downloads, lets addressables reference MonoBehaviours, and avoids shader loading errors on specific platforms.</p></div></article>
+        <div class="showcase-thumbs">
+          <button type="button" class="active" aria-label="Vectoria"><img src="images/vectoria.png" alt="" style="object-position:0% 50%"></button>
+          <button type="button" aria-label="NeuralNet Pro"><img src="images/neuralnet-pro.webp" alt=""></button>
+          <button type="button" aria-label="Grand Pool"><img src="images/grand-pool.png" alt=""></button>
+          <button type="button" aria-label="Addressable Manager"><img src="images/addressable-manager.png" alt=""></button>
+        </div>
       </div>
     </div>
   </section>
@@ -239,6 +272,18 @@
     document.querySelector('.arrow.next').addEventListener('click', function () { show(i + 1); auto(); });
     thumbs.forEach(function (t, k) { t.addEventListener('click', function () { show(k); auto(); }); });
     show(0); auto();
+  })();
+</script>
+<script>
+  // Product showcase
+  (function () {
+    var items = document.querySelectorAll('.showcase-item'), btns = document.querySelectorAll('.showcase-thumbs button');
+    btns.forEach(function (b, k) {
+      b.addEventListener('click', function () {
+        items.forEach(function (it, j) { it.classList.toggle('active', j === k); });
+        btns.forEach(function (x, j) { x.classList.toggle('active', j === k); });
+      });
+    });
   })();
 </script>
 <script>
