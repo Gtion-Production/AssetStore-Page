@@ -51,6 +51,8 @@
           <h1>uGUI</h1>
           <p class="lead muted">VectoriaImage in the uGUI Canvas.</p>
 <p><code>VectoriaImage</code> (namespace <code>Vectoria</code>) is an <code>Image</code>, so it takes part in masking, raycasting and layout like one. It draws one artboard of a <code>.vpaint</code>.</p>
+<h2>Drag a .vpaint into the scene</h2>
+<p>The quickest way to get a Vectoria Image: drag a <code>.vpaint</code> from the Project window into the <b>Hierarchy</b> or the <b>Scene view</b>. The new image uses the document&rsquo;s first artboard and takes that artboard&rsquo;s size (scaled down to fit 512 px). It is placed under the item you drop on or the selected one when that is inside a Canvas, otherwise under the first Canvas in the scene, and a Canvas is created if there is none. You can also drop a UI Vectoria artboard asset to use that artboard. The drop can be undone with Ctrl+Z.</p>
 <h2>Add it to a Canvas</h2>
 <ol>
   <li>Create it with <code>GameObject &rsaquo; UI (Canvas) &rsaquo; Vectoria Image</code>, or add the component <code>UI &rsaquo; Gtion &rsaquo; Vectoria Image</code> to a GameObject under a Canvas.</li>
