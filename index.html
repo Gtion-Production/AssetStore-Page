@@ -17,7 +17,7 @@
     --accent: #09b1ec;
     --overlay: rgba(0, 0, 0, .5);
     --header-h: 68px;
-    --container: 1000px;
+    --container: 1240px;
     --radius-icon: 10px;
     --font-heading: "Poppins", "Noto Sans", system-ui, sans-serif;
     --font-body: "Noto Sans", system-ui, sans-serif;
@@ -87,7 +87,6 @@
   @media (max-width: 700px) { .about::before, .about::after, .about .container::after { display: none; } }
 
   /* Product showcase (Yostar-style) */
-  #products .container { max-width: 1240px; }
   .showcase-item { display: none; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: start; }
   .showcase-item.active { display: grid; animation: showIn .45s ease; }
   @keyframes showIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -102,7 +101,7 @@
   .showcase-btn { align-self: flex-end; margin-top: auto; padding: 10px 40px; border: 2px solid #8a8a8a; border-radius: 999px; color: #6b6a6a; font: 600 20px var(--font-heading); text-transform: uppercase; letter-spacing: .06em; transition: background .2s, color .2s, border-color .2s; }
   .showcase-btn:hover { background: #000; border-color: #000; color: #fff; }
   .showcase-thumbs { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
-  .showcase-thumbs button { width: 100px; height: 100px; padding: 0; border: 4px solid #fff; border-radius: 22px; overflow: hidden; cursor: pointer; background: #222; box-shadow: 0 0 0 1px #ddd; opacity: .55; transition: opacity .2s, box-shadow .2s, transform .2s; }
+  .showcase-thumbs button { width: 72px; height: 72px; padding: 0; border: 3px solid #fff; border-radius: 16px; overflow: hidden; cursor: pointer; background: #222; box-shadow: 0 0 0 1px #ddd; opacity: .55; transition: opacity .2s, box-shadow .2s, transform .2s; }
   .showcase-thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .showcase-thumbs button:hover { opacity: 1; transform: translateY(-3px); box-shadow: 0 0 0 1px #ddd, 3px 3px 0 rgba(9,177,236,.3), 5px 6px 14px rgba(9,177,236,.3); }
   .showcase-thumbs button.active { opacity: 1; box-shadow: 0 0 0 3px var(--accent); }
@@ -110,7 +109,7 @@
     .showcase-item.active { grid-template-columns: 1fr; gap: 20px; }
     .showcase-info h3, .showcase-info .bar { text-align: left; align-self: flex-start; }
     .showcase-btn { margin-top: 20px; font-size: 16px; padding: 8px 28px; }
-    .showcase-thumbs button { width: 72px; height: 72px; border-radius: 16px; }
+    .showcase-thumbs button { width: 56px; height: 56px; border-radius: 12px; }
   }
 
   /* Asset grid */
