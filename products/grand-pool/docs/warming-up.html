@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warming Up &ndash; Grand Pool Documentation</title>
+<meta name="description" content="Prewarm a Grand Pool pool.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Grand Pool</a> / <a href="index.html">Documentation</a> / Warming Up</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="index.html">Overview</a><a class=" d0" href="getting-started.html">Getting Started</a><a class=" d0" href="pooling.html">Pooling</a><a class="cur d0" href="warming-up.html">Warming Up</a><a class=" d0" href="clean-up.html">Clean Up</a><a class=" d0" href="debugging.html">Debugging</a><a class=" d0" href="faq.html">FAQ</a>
+        </aside>
+        <article class="doc-body">
+          <h1>Warming Up</h1>
+          <p class="lead muted">Prepare a pool ahead of time to avoid a spike during gameplay.</p>
+          <p>By default you do not need to do this. If you work with a very big pool, you will probably want it, to reduce the performance spike at gameplay time.</p>
+<pre><code>[SerializeField]
+GameObject style1;
+[SerializeField]
+MeshRenderer style2;
+[SerializeField]
+CustomClass style3;
+
+private void Start()
+{
+    int poolCount = 5;     //how much is preserved in pool
+    int poolLimit = 10;    //how much pool should store, more than this will be destroyed
+    bool isNonLazy = false; //should we spawn `poolCount` immediately?
+    style1.Register(poolCount, poolLimit, isNonLazy);
+    style2.Register(poolCount, poolLimit, isNonLazy);
+    style3.Register(poolCount, poolLimit, isNonLazy);
+}</code></pre>
+<table>
+  <tr><th>Parameter</th><th>Meaning</th></tr>
+  <tr><td><code>poolCount</code></td><td>How many objects the pool keeps ready.</td></tr>
+  <tr><td><code>poolLimit</code></td><td>How many objects the pool stores. Objects beyond this are destroyed.</td></tr>
+  <tr><td><code>isNonLazy</code></td><td>If true, the <code>poolCount</code> objects are spawned immediately.</td></tr>
+</table>
+<p>If you do not call <code>Register</code>, the default configuration is used.</p>
+          <div class="pager"><a class="prev" href="pooling.html"><small>Previous</small>Pooling</a><a class="next" href="clean-up.html"><small>Next</small>Clean Up</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grand Pool Documentation &ndash; Grand Pool Documentation</title>
+<meta name="description" content="Object pooling for Unity with no setup.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Grand Pool</a> / Documentation</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class="cur d0" href="index.html">Overview</a><a class=" d0" href="getting-started.html">Getting Started</a><a class=" d0" href="pooling.html">Pooling</a><a class=" d0" href="warming-up.html">Warming Up</a><a class=" d0" href="clean-up.html">Clean Up</a><a class=" d0" href="debugging.html">Debugging</a><a class=" d0" href="faq.html">FAQ</a>
+        </aside>
+        <article class="doc-body">
+          <h1>Grand Pool Documentation</h1>
+          <p class="lead muted">The easiest pooling system for Unity: call GetPool() and you are done.</p>
+          <p>Grand Pool by Gtion is a pooling system for Unity. A pool keeps a collection of inactive objects ready to be reused. Instead of creating and destroying objects (such as game objects or prefabs) again and again, which is expensive and leads to memory fragmentation, you take an object from the pool and give it back when you are done.</p>
+          <p>It pools GameObjects, Unity native components (Mesh, ParticleSystem, SpriteRenderer and more) and custom <code>MonoBehaviour</code> classes. No setup is needed: reference your prefab and call <code>GetPool()</code>.</p>
+
+<h2 style="margin-top:32px">Where do you want to start?</h2>
+<div class="features">
+  <a class="feature" href="getting-started.html"><h3>I am new to Grand Pool</h3><p>Spawn your first object from a pool and give it back.</p></a>
+  <a class="feature" href="pooling.html"><h3>I want to pool my objects</h3><p>GameObjects, components and custom classes.</p></a>
+  <a class="feature" href="warming-up.html"><h3>I have a very big pool</h3><p>Prewarm it to avoid a spike at gameplay time.</p></a>
+</div>
+
+<h2 style="margin-top:32px">Quick answers</h2>
+<table>
+  <tr><th>If you want to&hellip;</th><th>Read</th></tr>
+  <tr><td>Spawn and release your first object</td><td><a href="getting-started.html"><u>Getting Started</u></a></td></tr>
+  <tr><td>Pool a component or a custom class</td><td><a href="pooling.html"><u>Pooling</u></a></td></tr>
+  <tr><td>Prewarm a pool and set a limit</td><td><a href="warming-up.html"><u>Warming Up</u></a></td></tr>
+  <tr><td>Free memory and destroy pool items</td><td><a href="clean-up.html"><u>Clean Up</u></a></td></tr>
+  <tr><td>Track what the pool is doing</td><td><a href="debugging.html"><u>Debugging</u></a></td></tr>
+  <tr><td>Check mobile support or what happens with <code>Destroy</code></td><td><a href="faq.html"><u>FAQ</u></a></td></tr>
+</table>
+
+<h2 style="margin-top:32px">Full map</h2>
+<ul>
+  <li><a href="getting-started.html"><u>Getting Started</u></a>: spawn from a pool and release</li>
+  <li><a href="pooling.html"><u>Pooling</u></a>: GameObjects, components, custom classes</li>
+  <li><a href="warming-up.html"><u>Warming Up</u></a>: pool count, pool limit, lazy and non-lazy</li>
+  <li><a href="clean-up.html"><u>Clean Up</u></a>: <code>DestroyPoolManager</code></li>
+  <li><a href="debugging.html"><u>Debugging</u></a>: <code>GPool.EnableDebugging</code></li>
+  <li><a href="faq.html"><u>FAQ</u></a></li>
+</ul>
+          <div class="pager"><span></span><a class="next" href="getting-started.html"><small>Next</small>Getting Started</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

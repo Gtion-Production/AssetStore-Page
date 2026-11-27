@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor Helper &ndash; Addressable Manager Documentation</title>
+<meta name="description" content="AddressableEditorHelper for editor tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Addressable Manager</a> / <a href="index.html">Documentation</a> / Editor Helper</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="index.html">Overview</a><a class=" d0" href="getting-started.html">Getting Started</a><a class=" d0" href="asset-references.html">Using Asset References</a><a class=" d0" href="scenes.html">Scenes and Preloading</a><a class=" d0" href="downloading.html">Downloading Bundles</a><a class="cur d0" href="editor-helper.html">Editor Helper</a><a class=" d0" href="why.html">Why This Package</a>
+        </aside>
+        <article class="doc-body">
+          <h1>Editor Helper</h1>
+          <p class="lead muted">Helpers for editor tools that work with Addressables.</p>
+          <p>If you make editor tools that involve Addressables, <code>AddressableEditorHelper.cs</code> helps. It handles three things:</p>
+<pre><code>//to get all labels for a certain asset
+AddressableEditorHelper.GetReferenceLabel(IKeyevaluator);
+
+//insert a unity object into an addressable bundle
+AddressableEditorHelper.SetAsAddressable(Object unityObj, bool askQuestion = true, AddressableAssetGroup bundle = null);
+
+//convert a unity object to an AssetReference (it also inserts it into the addressable bundle)
+AddressableEditorHelper.ConvertToAssetReference(Object unityObj, bool askQuestion = true, AddressableAssetGroup bundle = null);</code></pre>
+          <div class="pager"><a class="prev" href="downloading.html"><small>Previous</small>Downloading Bundles</a><a class="next" href="why.html"><small>Next</small>Why This Package</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Started &ndash; Grand Pool Documentation</title>
+<meta name="description" content="Your first pooled object.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Grand Pool</a> / <a href="index.html">Documentation</a> / Getting Started</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="index.html">Overview</a><a class="cur d0" href="getting-started.html">Getting Started</a><a class=" d0" href="pooling.html">Pooling</a><a class=" d0" href="warming-up.html">Warming Up</a><a class=" d0" href="clean-up.html">Clean Up</a><a class=" d0" href="debugging.html">Debugging</a><a class=" d0" href="faq.html">FAQ</a>
+        </aside>
+        <article class="doc-body">
+          <h1>Getting Started</h1>
+          <p class="lead muted">Spawn an object from a pool and give it back.</p>
+          <p>Keep a reference to your prefab, call <code>GetPool()</code> to get an instance, and call <code>Release()</code> to return it to the pool.</p>
+<pre><code>[SerializeField]
+GameObject cube; //you need reference of your prefab
+
+private async void SpawnCube()
+{
+    //this is how you instantiate from pool
+    GameObject instance = cube.GetPool(new Vector3(0,0,0), Quaternion.identity);
+
+    await Task.Delay(3000);
+    //this is how you return your instance to pool
+    instance.Release();
+}</code></pre>
+<div class="note">You do not need to set anything up in the editor. You can call <code>GetPool()</code> without any setup.</div>
+          <div class="pager"><a class="prev" href="index.html"><small>Previous</small>Overview</a><a class="next" href="pooling.html"><small>Next</small>Pooling</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

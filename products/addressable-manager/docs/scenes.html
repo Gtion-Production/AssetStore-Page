@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scenes and Preloading &ndash; Addressable Manager Documentation</title>
+<meta name="description" content="Scene loading with Addressable Manager.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=optional" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../../index.html" aria-label="GTION Game Studio"><img src="../../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../../index.html#home">Home</a>
+      <a href="../../../index.html#about">About</a>
+      <a class="active" href="../../../index.html#products">Products</a>
+      <a href="../../../index.html#news">News</a>
+      <a href="../../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../../index.html#products">Products</a> / <a href="../index.html">Addressable Manager</a> / <a href="index.html">Documentation</a> / Scenes and Preloading</div>
+      <div class="docs">
+        <aside class="toc tree" aria-label="Documentation">
+          <b>Documentation</b>
+          <a class=" d0" href="index.html">Overview</a><a class=" d0" href="getting-started.html">Getting Started</a><a class=" d0" href="asset-references.html">Using Asset References</a><a class="cur d0" href="scenes.html">Scenes and Preloading</a><a class=" d0" href="downloading.html">Downloading Bundles</a><a class=" d0" href="editor-helper.html">Editor Helper</a><a class=" d0" href="why.html">Why This Package</a>
+        </aside>
+        <article class="doc-body">
+          <h1>Scenes and Preloading</h1>
+          <p class="lead muted">Load, unload and preload scenes with AssetReferenceScene.</p>
+          <h2>Load and unload</h2>
+          <p><code>AssetReferenceScene</code> is made for scenes. You can load and unload with it.</p>
+<pre><code>AssetReferenceScene sceneRef;
+
+if (isUnloadScene)
+{
+    await sceneRef.UnloadSceneAsync();
+}
+else
+{
+    await sceneRef.LoadSceneAsync(LoadSceneMode.Additive);
+}</code></pre>
+<h2>Preload a scene</h2>
+<p>You may want to load a scene in advance. Pass <code>activateOnLoad: false</code> to preload it, then activate it when you are ready.</p>
+<pre><code>private async void PreloadScene() //wrap it in a C# async method so it does not block the logic
+{
+    //use `activateOnLoad: false` to preload
+    await sceneRef.LoadSceneAsync(LoadSceneMode.Additive, activateOnLoad: false);
+}
+
+//then at another time, when you are ready to load
+await sceneRef.ActivateAsync();</code></pre>
+<div class="note"><b>Warning:</b> preloading blocks all other async methods. This is a Unity bug and happens with a normal scene load too, not only with Addressables.</div>
+          <div class="pager"><a class="prev" href="asset-references.html"><small>Previous</small>Using Asset References</a><a class="next" href="downloading.html"><small>Next</small>Downloading Bundles</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>
