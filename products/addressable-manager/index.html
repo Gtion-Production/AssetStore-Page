@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Addressable Manager by Gtion – Gtion Asset Store</title>
+<meta name="description" content="Addressable Manager by Gtion. A wrapper that makes Unity Addressables easier to use.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/product.css">
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="logo" href="../../index.html" aria-label="GTION Game Studio"><img src="../../assets/logo/gtion-logo.png" alt="GTION Game Studio"></a>
+    <nav>
+      <a href="../../index.html#home">Home</a>
+      <a href="../../index.html#about">About</a>
+      <a class="active" href="../../index.html#products">Products</a>
+      <a href="../../index.html#news">News</a>
+      <a href="../../index.html#contact">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container wide">
+      <div class="crumbs"><a href="../../index.html#products">Products</a> / Addressable Manager</div>
+      <div class="product-hero">
+        <div class="thumb-lg"><img src="../../images/addressable-manager.png" alt="Addressable Manager key art" width="800" height="450"></div>
+        <div>
+          <h1>Addressable Manager by Gtion</h1>
+          <p class="lead">A wrapper package to help you use Addressables more easily.</p>
+          <p class="muted">Runtime &middot; Tools &middot; Asset Management</p>
+          <div class="btn-row">
+            <a class="btn" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener">Go to Asset Store</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview" style="padding-top:0">
+    <div class="container wide">
+      <div class="tabs"><span>Overview</span></div>
+      <h2>A wrapper that makes Addressables easier</h2>
+      <p>Addressables is a powerful package from Unity, but it can be inefficient to use. Addressable Manager is a wrapper to help you use it more easily. It is an essential tool for Gtion's own work, sold at the lowest paid price so as many people as possible can use it.</p>
+      <p>Using Addressables can be as simple as this:</p>
+      <pre><code>AssetReference&lt;GameObject&gt; reference;
+
+var asset = await reference.LoadAssetAsync();</code></pre>
+      <p>That looks normal, but you are not limited to using it just once. Doing this again and again is fine, without errors:</p>
+      <pre><code>asset = await reference.LoadAssetAsync();
+asset = await reference.LoadAssetAsync();
+asset = await reference.LoadAssetAsync();</code></pre>
+
+      <div class="features">
+        <div class="feature"><h3>Simple loading</h3><p>Simplifies asset loading and addressable scene loading.</p></div>
+        <div class="feature"><h3>On-demand download</h3><p>Simplifies on-demand download of addressable content.</p></div>
+        <div class="feature"><h3>MonoBehaviour references</h3><p>Allows addressables to reference MonoBehaviour.</p></div>
+      </div>
+
+      <h3>Key features</h3>
+      <ul>
+        <li>Simplify asset loading</li>
+        <li>Simplify addressable scene loading</li>
+        <li>Simplify on-demand download</li>
+        <li>Allows addressables to reference MonoBehaviour</li>
+        <li>Avoid loading error shader for specific platform</li>
+      </ul>
+
+      <p class="muted"><b>Requires:</b> Unity 2022.3 or newer and the Addressables package. Works with Built-in, URP and HDRP.</p>
+    </div>
+  </section>
+
+  <section id="get" style="padding-top:0">
+    <div class="container wide">
+      <div class="tabs"><span>Availability</span></div>
+      <h2>Get Addressable Manager</h2>
+      <p>Addressable Manager is available on the Unity Asset Store for $4.99 (version 1.0). Questions? Join the <a href="../../index.html#contact"><u>Gtion community</u></a>.</p>
+      <div class="btn-row"><a class="btn" href="https://assetstore.unity.com/packages/tools/utilities/addressable-manager-by-gtion-298982" target="_blank" rel="noopener">Go to Asset Store</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Gtion Production</span>
+    <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>
